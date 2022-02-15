@@ -1,0 +1,57 @@
+.hero{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    background: url(../../assets/home8.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+section{
+    padding: 2rem 7%;
+}
+
+.hero .content{
+    max-width: 60rem;
+}
+
+.hero .content h3{
+    font-size: 6rem;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.hero .content p{
+    font-size: 2rem;
+    font-weight: lighter;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: #eee;
+
+}
+
+
+
+
+@media (max-width: 991px) {
+    section{
+        padding: 2rem;
+    }
+    .hero{
+        background-position:  left;
+        justify-content: center;
+        text-align: center;
+    }
+    .hero h3{
+        font-size: 4.5rem;
+    }
+    .hero p{
+        font-size: 1.5rem;
+    }
+}
+@media (max-width: 450px) {
+    html{
+        font-size: 50%;
+    }
+}
