@@ -1,15 +1,14 @@
-
 :root{
-    --main-color:#d3ad7f;
-    --black: #13131a;
-    --bg:#010103;
-    --border: .1rem solid rgba(255,255,255,.3)
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  
 }
 
 .heading{
     text-align: center;
     text-transform: uppercase;
-    color: #fff;
+    color: #13131a;
     font-size: 4rem;
     padding-bottom: 3.5rem;
 
@@ -23,6 +22,8 @@
     display: flex;
     align-items: center;
     background: var(--black);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+
     flex-wrap: wrap;
     
 }
@@ -43,7 +44,7 @@
 }
 .about .row .content h3{
     font-size: 3rem;
-    color: #fff;
+    color: #13131a;
 }
 .about .row .content p{
     font-size:  1.6rem;

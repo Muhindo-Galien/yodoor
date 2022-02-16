@@ -1,0 +1,52 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  
+}
+
+.footer{
+    background: #13131a;
+    text-align: center;
+}
+.footer .share{
+    padding: 1rem 0;
+}
+.footer .share a{
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    color: #fff;
+    border-radius: 50%;
+    margin: 0.3rem;
+    border: 1px solid #ccc;
+}
+.footer .share a:hover{
+    background: var(--main-color);
+}
+.footer .links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    gap: 1rem;
+}
+.footer .links a{
+    padding: 0.7rem 2rem;
+    font-size: 2rem;
+    color: #fff;
+}
+.footer .links a:hover{
+    color: var(--main-color);
+}
+
+.footer .credit{
+    color: #fff;
+    font-weight: lighter;
+    font-size: 2rem;
+    padding: 1.5rem;
+}
+.footer .credit span{
+    color: var(--main-color);
+}

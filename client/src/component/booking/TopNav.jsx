@@ -21,6 +21,7 @@ const TopNav = () => {
 
       <nav className={isOpen?'navbar active':'navbar'}>
         <a href="#">Home</a>
+        <a href="#">Rooms</a>
         <a href="#">Blog</a>
         <a href="#">About us</a>
         <a href="#">Contact us</a>

@@ -1,0 +1,56 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+}
+
+.contact .row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: var(--black);
+    flex-wrap: wrap;
+    gap: 3rem;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+
+}
+.contact .row .shake{
+    flex: 1 1 45rem;
+}
+.contact .row .shake img{
+    object-fit: cover;
+    width: 100%;
+}
+.contact .row form{
+    flex: 1 1 45rem;
+    width: 100%;
+    padding: 5rem 2rem;
+    text-align: center;
+
+}
+.contact .row form h3{
+    text-transform: uppercase;
+    font-size: 3.5rem;
+    color: #13131a;
+}
+.contact .row form .inputBox{
+    display: flex;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    background: var(--black);
+    border: 1px solid #eee;
+    border-radius: .5rem;
+}
+.contact .row form .inputBox span{
+    color: #13131a;
+    font-size: 2rem;
+    padding-left: 2rem;
+}
+.contact .row form .inputBox input{
+    color: #13131a;
+    padding: 2rem;
+    font-size: 1.7rem;
+    text-transform: none;
+    background: none;
+}

@@ -1,0 +1,36 @@
+
+:root{
+    --main-color:#d3ad7f;
+    --black: #13131a;
+    --bg:#010103;
+    --border: .1rem solid rgba(255,255,255,.3)
+}
+.press{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: var(--black);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+
+    width: 100%;
+    overflow: hidden;
+
+}
+.press img{
+    height:8rem;
+    margin: 4rem;
+    object-fit: cover;
+}
+@media (max-width: 991px) {
+
+    .press img{
+        height:8%;
+        width:10%;
+        margin: 2rem;
+        object-fit: cover;
+    } 
+}
+@media (max-width: 450px) {
+
+}
