@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../assets/logoyo.png';
 import homepic from '../../assets/home1.jpg';
 import './topnav.css';
+import { Link } from 'react-router-dom';
 
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,11 +21,21 @@ const TopNav = () => {
       </a>
 
       <nav className={isOpen?'navbar active':'navbar'}>
-        <a href="#">Home</a>
-        <a href="#">Rooms</a>
-        <a href="#">Blog</a>
-        <a href="#">About us</a>
-        <a href="#">Contact us</a>
+        <Link to='/'>
+          <a  onClick={() => setIsOpen(!isOpen)}>Home</a>
+        </Link>
+        <Link to='/rooms'>
+          <a onClick={() => setIsOpen(!isOpen)}>Rooms</a>
+        </Link>
+        <Link to='/blog'>
+          <a onClick={() => setIsOpen(!isOpen)}>Blog</a>
+        </Link>
+        <Link to='/about'>
+          <a onClick={() => setIsOpen(!isOpen)}>About us</a>
+        </Link>
+        <Link to='/contact'>
+          <a onClick={() => setIsOpen(!isOpen)}>Contact us</a>
+        </Link>
       </nav>
 
       <div className="icons">

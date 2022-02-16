@@ -1,0 +1,97 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  
+}
+.rooms{
+    margin-top: 10rem;
+}
+.rooms .row{
+    display: flex;
+    /* align-items: center; */
+    background: var(--black);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    
+}
+.rooms .row .image{
+    flex: 1 1 45rem;
+    padding: 0px;
+
+}
+.rooms .row .image img{
+    width: 100%;
+    padding: 0px;
+    
+}
+
+.rooms .row .content{
+    flex: 1 1 45rem;
+    padding: 2.5rem;
+    margin: 0 !important; 
+    margin-right: 15rem !important;
+    
+}
+
+.rooms .row .content h3{
+    font-size: 3rem;
+    color: #13131a;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+}
+
+.rooms .row .content .location {
+    color: #548CFF;
+    font-size: 1.5rem;
+
+}
+.rooms .row .content .location 
+span{
+    font-size: 1.5rem;
+    padding-right: .5rem;
+    text-transform: lowercase !important;
+}
+
+.rooms .row .content .price{
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #6f6f72;
+    display: flex;
+    align-items: center;
+}
+.rooms .row .content .price span{
+    font-size: 1rem;
+    padding-left: 2rem;
+    color: #548CFF;
+}
+.rooms .row .content .r-buttons{
+    padding-top: 1rem;
+    
+
+}
+.rooms .row .content .r-buttons .r-more{
+    margin-right: 2rem;
+    color: #548CFF !important;
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+}
+
+@media (max-width: 450px) {
+    .rooms .row .content{
+        margin: 0 !important; 
+    }
+    .rooms .row .image{
+        order: 1;
+    }
+    .rooms .row .content{
+        order: 2;
+    }
+}
+
+@media (max-width: 991px) {
+    .rooms .row .content{
+        margin: 0 !important; 
+    }
+}
