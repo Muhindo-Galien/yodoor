@@ -1,0 +1,110 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+    --border: .1rem solid rgba(255,255,255,.3)
+}
+
+
+
+.filter{
+    /* width: 100%; */
+  
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background: var(--black);
+    flex-wrap: wrap;
+    gap: 5rem;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+}
+
+
+.filter  h3{
+    /* padding: 0rem !important; */
+    text-align-last: left;
+    font-size: 1.5rem;
+    color: #13131a;
+}
+
+.filter form{
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    background: var(--black);
+    flex-wrap: wrap;
+    gap: 1rem; 
+    /* padding: 2rem; */
+    text-align: center;
+}
+
+.filter form .inputBox{
+    /* width: 100%; */
+    display: flex;
+    /* justify-content: center; */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+    background: var(--black);
+    border: 1px solid #eee;
+    border-radius: .5rem;
+}
+.filter  form .inputBox span{
+    color: #13131a;
+    font-size: 2rem;
+    padding-right: 2rem;
+}
+
+ .filter  form  .search{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 1rem 3rem;
+    font-size: 1.7rem;
+    color: #fff !important;
+    background: var(--main-color);
+     margin-top: 0;
+     margin-left: 0;
+     border-radius: .5rem;
+ }
+.filter  form .inputBox input{
+    color: #13131a;
+    padding: 1.5rem !important;
+    font-size: 1rem;
+    text-transform: none;
+    background: none;
+    /* width: 100%; */
+}
+
+@media (max-width: 991px) {
+    .filter{
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(30rem, 1fr));
+        gap: 0rem;
+    }
+    .filter form{
+        gap: 1rem !important;
+        padding-bottom: 2rem;
+        padding-top: 2rem;
+    }
+    .filter form .inputBox{
+        width: 100%;
+        margin-top: 0 !important;
+        margin-bottom: 0;
+        padding: 0 !important;
+        border: 1px solid #ccc;
+    }
+    .filter  form .inputBox input{
+        margin-bottom: 0;
+        width: 100%;
+    }
+    .filter  h3{
+        padding: 2rem;
+        padding-left: 2.5rem;
+    }
+    .filter  form  .search{
+        width: 100% !important;
+        margin-top: 0;
+        margin-left: 0;
+        padding-left: 0;
+    }
+}

@@ -3,15 +3,20 @@ import logo from '../../assets/logoyo.png';
 import homepic from '../../assets/home1.jpg';
 import './topnav.css';
 import { Link } from 'react-router-dom';
+import SideLinks from '../side likns/SideLinks';
 
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openIt, setOpenIt] = useState(false);
+  const [dropit, setDropit] = useState(false);
   const handelMenu =()=>{
     setIsOpen(!isOpen)
   }
   const handeOpenIt =()=>{
     setOpenIt(!openIt)
+  }
+  const handelDrop =()=>{
+    setDropit(!dropit)
   }
   return (
     <div className='topnav'>
@@ -40,9 +45,10 @@ const TopNav = () => {
 
       <div className="icons">
         <div className="fas fa-shopping-cart" onClick={()=>handeOpenIt()}></div>
-        <div className="fas fa-user"></div>
+        <div className="fas fa-user" onClick={()=>handelDrop()}></div>
         <div className="fas fa-bars" id='menu-btn' onClick={()=>handelMenu()}></div>
       </div>
+      <SideLinks dropit={dropit}/>
 
       <div className={openIt?"carts-item-container active":"carts-item-container"}>
         <div className="cart-item">

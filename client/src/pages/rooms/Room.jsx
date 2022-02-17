@@ -4,11 +4,13 @@ import home3 from '../../assets/home3.jpg'
 import './room.css'
 import Footer from '../../component/footer/Footer'
 import Press from '../../component/press/Press'
+import Filter from '../../component/filter/Filter'
 
 const Room = () => {
   return (
       <>
         <section className='rooms'>
+            <Filter/>
             <div className="row">
                 <div className="content">
                     <h3>Linda Hotel</h3>
