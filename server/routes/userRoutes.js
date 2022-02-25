@@ -5,4 +5,5 @@ import userControllers from '../controllers/userControllers';
 const router = express.Router();
 
 router.post('/register', userControllers.register);
+router.post('/activation', userControllers.activeEmail);
 module.exports = router;
