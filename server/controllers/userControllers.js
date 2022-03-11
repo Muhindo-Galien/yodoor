@@ -9,6 +9,7 @@ const {
     SERVER_ERROR,
   } = require('../constants/statusCodes');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+const sendEmail = require('./sendMail');
 const {CLIENT_URL} = process.env
 
 const userControllers = {
@@ -53,7 +54,7 @@ const userControllers = {
             const activation_token = createActivationToken(newUser);
             
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
-            sendMail(email, url, "Verify your email address")
+            sendEmail(email, url, "Verify your email address")
 
 
             console.log(newUser);
