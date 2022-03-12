@@ -2,11 +2,12 @@ const Users=  require('../models/userModel');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-const sendMail = require('./sendMail');
+const cookie = require('cookie-parser')
 
 const {
     BAD_REQUEST,
     SERVER_ERROR,
+    OK,
   } = require('../constants/statusCodes');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const sendEmail = require('./sendMail');
@@ -62,7 +63,7 @@ const userControllers = {
 
             res.json({msg: "Register success, Please sctivate you email to start"})
         } catch (error){
-            return  NodeList.status(SERVER_ERROR).json({
+            return  res.status(SERVER_ERROR).json({
                 status: "error",
                 msg: error.message
             });
@@ -96,11 +97,65 @@ const userControllers = {
         } catch (error) {
             return res.status(SERVER_ERROR).json(
                 {status:'error',
-                msg: err.message
+                msg: error.message
             }
             )
         }
-    })
+    }),
+    login: catchAsyncErrors(async(req,res)=>{
+        try {
+            const {email,password} = req.body;
+            const user = await Users.findOne({email});
+            if(!user) return res.status(BAD_REQUEST).json({
+                status:"error",
+                msg:"This is email doesn't exist!"
+            });
+
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if(!isMatch) return res.status(BAD_REQUEST).json({
+                status:"error",
+                msg:"Password incorrect!"
+            });
+            const refresh_token = createRefreshToken({id:user._id});
+            console.log("this is refresh_token",refresh_token);
+            
+            res.cookie('refreshtoken', refresh_token,{
+                httpOnly: true,
+                path:'/api/user/refresh_token',
+                maxAge: 7*24*60*60*100
+            })
+
+            res.json({
+                status:"success",
+                msg:"Login success!"
+            })
+
+        } catch (error) {
+            res.status(SERVER_ERROR).json(
+                {
+                    status: "error",
+                    msg: error.message
+                }
+            )
+        }
+    }),
+    getAccessToken: (res,req)=>{
+        try {
+            // error here
+            const rf_token = req.cookies.refreshtoken;
+            console.log(rf_token);
+             
+        } catch (error) {
+            res.status(500).json(
+                {
+                    status: "error",
+                    msg: error.message
+                }
+            )
+        
+        }
+    }
 }
 
 const validateEmail = (email) => {

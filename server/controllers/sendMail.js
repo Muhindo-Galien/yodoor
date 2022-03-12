@@ -17,7 +17,7 @@ const oAuth2Client = new google.auth.OAuth2(
     MAILING_SERVICE_CLIENT_SECRET,
     MAILING_SERVICE_REFRESH_TOKEN,
     OAUTH_PLAYGROUND
-)
+);
 
 // send mail
 const sendEmail = (to, url, txt) => {
@@ -56,7 +56,7 @@ const sendEmail = (to, url, txt) => {
         <div  style=" font-family: sans-serif;">${url}</div>
         `
     }
-
+    
     smtpTransport.sendMail(mailOptions, (err, infor) => {
         if(err) return err;
         return infor

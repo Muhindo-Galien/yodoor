@@ -20,13 +20,13 @@ mongoose.connect(process.env.MONGO_URI,{
 then(console.log('DB connected successfully')).catch((err)=>console.log(`DB connection Error`, err))
 
 //midlleware
-app.use(cors())
-app.use(morgan('dev'))
-app.use(cookieParser())
+app.use(cors());
+app.use(morgan('dev'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(fileUpload({
   useTempFiles: true
-}))
+}));
 
 // routes midlware
 
