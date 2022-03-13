@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:Number,
-        default:1  //o=user 1=admin
+        default:0  //o=user 1=admin
     },
     avatar:{
         type:String,

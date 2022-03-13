@@ -102,60 +102,114 @@ const userControllers = {
             )
         }
     }),
-    login: catchAsyncErrors(async(req,res)=>{
+    
+    login: async (req, res) => {
         try {
-            const {email,password} = req.body;
-            const user = await Users.findOne({email});
-            if(!user) return res.status(BAD_REQUEST).json({
-                status:"error",
-                msg:"This is email doesn't exist!"
-            });
+            const {email, password} = req.body
+            const user = await Users.findOne({email})
+            if(!user) return res.status(400).json({msg: "This email does not exist."})
 
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, user.password)
+            if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
 
-            if(!isMatch) return res.status(BAD_REQUEST).json({
-                status:"error",
-                msg:"Password incorrect!"
-            });
-            const refresh_token = createRefreshToken({id:user._id});
-            console.log("this is refresh_token",refresh_token);
-            
-            res.cookie('refreshtoken', refresh_token,{
+            const refresh_token = createRefreshToken({id: user._id})
+            res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path:'/api/user/refresh_token',
-                maxAge: 7*24*60*60*100
+                path: '/api/user/refresh_token',
+                maxAge: 7*24*60*60*1000 // 7 days
             })
 
-            res.json({
-                status:"success",
-                msg:"Login success!"
-            })
-
-        } catch (error) {
-            res.status(SERVER_ERROR).json(
-                {
-                    status: "error",
-                    msg: error.message
-                }
-            )
+            res.json({msg: "Login success!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
         }
-    }),
-    getAccessToken: (res,req)=>{
+    },
+    getAccessToken: (req, res) => {
         try {
-            // error here
             const rf_token = req.cookies.refreshtoken;
-            console.log(rf_token);
-             
-        } catch (error) {
-            res.status(500).json(
+            if(!rf_token) return res.status(BAD_REQUEST).json(
                 {
-                    status: "error",
-                    msg: error.message
-                }
-            )
-        
+                status:"error",
+                msg: "Please login now!"})
+
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN, (err, user) => {
+                if(err) return res.status(BAD_REQUEST).json(
+                    {
+                    status:"error",
+                    msg: "Please login now!"})
+                const access_token = createAccessToken({id: user.id})
+                res.json({access_token})
+            })
+        } catch (err) {
+            return res.status(SERVER_ERROR).json(
+                {
+                status:"error",
+                msg: err.message})
         }
-    }
+    },
+
+    forgotPassword: async (req, res) => {
+        try {
+            const {email} = req.body
+            const user = await Users.findOne({email})
+            if(!user) return res.status(BAD_REQUEST).json(
+                {
+                    status:"error",
+                    msg: "This email does not exist."})
+
+            const access_token = createAccessToken({id: user._id})
+            const url = `${CLIENT_URL}/user/reset/${access_token}`
+
+            sendEmail(email, url, "Reset your password")
+            res.json(
+                {
+                    status:"success",
+                    msg: "Re-send the password, please check your email."})
+        } catch (err) {
+            return res.status(SERVER_ERROR).json({msg: err.message})
+        }
+    },
+    resetPassword: async (req, res) => {
+        try {
+            const {password} = req.body
+            console.log(password)
+            const passwordHash = await bcrypt.hash(password, 12)
+
+            await Users.findOneAndUpdate({_id: req.user.id}, {
+                password: passwordHash
+            })
+
+            res.json({msg: "Password successfully changed!"})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getUserInfor: async (req, res) => {
+        try {
+            const user = await Users.findById(req.user.id).select('-password')
+
+            res.json(user)
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    getUsersAllInfor: async (req, res) => {
+        try {
+            const users = await Users.find().select('-password')
+            res.json(users);
+
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    logout: async (req, res) => {
+        try {
+            res.clearCookie('refreshtoken', {path: '/api/user/refresh_token'})
+            return res.json({msg: "Logged out."})
+        } catch (err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 }
 
 const validateEmail = (email) => {
