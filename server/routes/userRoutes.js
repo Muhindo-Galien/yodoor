@@ -15,4 +15,12 @@ router.post('/user/reset',auth ,userControllers.resetPassword);
 router.get('/user/infor',auth ,userControllers.getUserInfor);
 router.get('/user/all_infor', auth, authAdmin, userControllers.getUsersAllInfor)
 router.get('/user/logout', userControllers.logout)
+router.patch('/user/update',auth, userControllers.updateUser)
+router.patch('/user/update_role/:id', auth, authAdmin, userControllers.updateUsersRole)
+router.delete('/user/delete/:id', auth, authAdmin, userControllers.deleteUser)
+
+// Social Login
+// router.post('/google_login', userCtrl.googleLogin)
+
+// router.post('/facebook_login', userCtrl.facebookLogin
 module.exports = router;

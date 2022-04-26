@@ -1,0 +1,100 @@
+:root{
+  --main-color:#548CFF;
+  --black: #FFFFFF;
+  --bg:#fff;;
+}
+
+
+.X{
+  margin: auto;
+  padding: 1% 2%;
+  max-width: 420px;
+  border-radius: 5px;
+  background: var(--black);
+  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+  margin-top: 10rem;
+}
+.X>h1,.X>h2{
+  text-align: center;
+}
+.X input,.X label,.X a, .X button{
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 30px;
+  text-align: justify;
+  letter-spacing: 1px;
+}
+.X ul{padding: 0;}
+.lsn li{margin: 15px 0;list-style: none;}
+.lsn a{
+  padding: 4%;
+  color: #fff;
+  display: block;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.lsn span{
+  margin: 0 8px 0 0;
+  padding: 5.4% 15px 6% 0;
+}
+.lsn span i{width: 15px;}
+#fb{
+  background: var(--bg);
+  color: rgba(59, 89, 152, 1);
+  border: 1px solid rgba(59, 89, 152, 1);
+}
+#gl{
+  background: var(--bg);
+  color: tomato;
+  border: 1px solid tomato;
+
+}
+.X .pss{
+  width: 100%;
+  display: inline-block;
+}
+.X .orlog{
+  font-size: inherit;
+}
+.X .orlog span{
+  text-transform: lowercase;
+  color: var(--main-color);
+}
+.pss a{
+  float: right;
+  font-size: 14px;
+  color:#0080FF;;
+  text-decoration: none;
+}
+/*style form*/
+.X form{
+  width: 100%;
+  margin-top: 40px;
+}
+.X input,.X button{
+   width: 100%;
+   border: none;
+   outline: none;
+   padding: 10px;
+   margin: 8px auto;
+   box-sizing: border-box;
+   box-shadow: 0 2px 4px rgba(0,0,0, .2);
+   border-bottom: 1px solid var(--main-color);
+}
+.X label{display: flex;}
+.X input:hover{box-shadow: 0 4px 6px rgba(0,0,0, .3);}
+.X input:focus{border: 1px solid #808b96;}
+.X input[type=submit],.X button{
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  background: var(--main-color);
+}
+.X input[type=submit]:focus{border: none;}
+
+
+/*Responsive*/
+@media (max-width: 350px){
+  input,label,a{font-size: 70%;}
+}
