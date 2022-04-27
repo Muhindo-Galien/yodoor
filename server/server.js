@@ -33,6 +33,8 @@ app.use(fileUpload({
 fs.readdirSync('./routes').map((r)=>
 app.use('/api', require(`./routes/${r}`)));
 
+
+
 const port = process.env.PORT || 5000;
 
 

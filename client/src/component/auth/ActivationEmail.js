@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
 import {showErrMsg, showSuccessMsg} from '../../component/utils/notification/Notification'
+import '../auth/login/login.css'
+
 
 function ActivationEmail() {
     const {activation_token} = useParams()
@@ -12,7 +14,7 @@ function ActivationEmail() {
         if(activation_token){
             const activationEmail = async () => {
                 try {
-                    const res = await axios.post('/user/activation', {activation_token})
+                    const res = await axios.post('/api/user/activation', {activation_token})
                     setSuccess(res.data.msg)
                 } catch (err) {
                     err.response.data.msg && setErr(err.response.data.msg)
@@ -23,7 +25,7 @@ function ActivationEmail() {
     },[activation_token])
 
     return (
-        <div className="active_page">
+        <div className="X">
             {err && showErrMsg(err)}
             {success && showSuccessMsg(success)}
         </div>

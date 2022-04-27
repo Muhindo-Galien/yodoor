@@ -4,11 +4,18 @@ import homepic from '../../assets/home1.jpg';
 import './topnav.css';
 import { Link } from 'react-router-dom';
 import SideLinks from '../side likns/SideLinks';
+import {useSelector} from 'react-redux'
+import axios from 'axios'
+import { FaAngleDown } from 'react-icons/fa';
+import ProDrop from './ProDrop';
+
 
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openIt, setOpenIt] = useState(false);
   const [dropit, setDropit] = useState(false);
+  const [isHandelProfDrop, setIsHandelProfDrop] = useState(false);
+  
   const handelMenu =()=>{
     setIsOpen(!isOpen)
   }
@@ -18,6 +25,36 @@ const TopNav = () => {
   const handelDrop =()=>{
     setDropit(!dropit)
   }
+  const handelProfDrop =()=>{
+    setIsHandelProfDrop(!isHandelProfDrop)
+  }
+ 
+  // user
+  const auth = useSelector(state => state.auth)
+  const {user, isLogged} = auth
+
+  const handleLogout = async () => {
+    try {
+        await axios.get('/api/user/logout')
+        localStorage.removeItem('firstLogin')
+        window.location.href = "/";
+    } catch (err) {
+        window.location.href = "/";
+    }
+}
+
+const userLink = () => {
+    return <div className=" fas">
+        <img src={user.avatar} alt="" className='prof'/><FaAngleDown onClick={()=>handelProfDrop()}/>
+        {/* {user.name} <FaAngleDown/> */}
+        <ProDrop dropit={isHandelProfDrop} handleLogout={handleLogout}/>
+    </div>
+}
+
+const transForm = {
+    transform: isLogged ? "translateY(-5px)" : 0
+}
+
   return (
     <div className='topnav'>
 
@@ -45,7 +82,12 @@ const TopNav = () => {
 
       <div className="icons">
         <div className="fas fa-shopping-cart" onClick={()=>handeOpenIt()}></div>
-        <div className="fas fa-user" onClick={()=>handelDrop()}></div>
+        {
+                    isLogged
+                    ? userLink()
+                    : <div className="fas fa-user" onClick={()=>handelDrop()}></div>
+                }
+       
         <div className="fas fa-bars" id='menu-btn' onClick={()=>handelMenu()}></div>
       </div>
       <SideLinks dropit={dropit}/>

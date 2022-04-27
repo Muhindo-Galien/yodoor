@@ -32,7 +32,7 @@ function ResetPassword() {
             return setData({...data, err: "Password did not match.", success: ''})
         
         try {
-            const res = await axios.post('/user/reset', {password}, {
+            const res = await axios.post('/api/user/reset', {password}, {
                 headers: {Authorization: token}
             })
 
@@ -46,7 +46,7 @@ function ResetPassword() {
 
 
     return (
-        <div className="fg_pass">
+        <div className="X">
             <h2>Reset Your Password</h2>
 
             <div className="row">
