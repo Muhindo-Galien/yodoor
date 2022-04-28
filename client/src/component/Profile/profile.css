@@ -1,3 +1,8 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  }
 .profile_page{
     width: 100%;
     display: flex;
@@ -40,7 +45,7 @@
     text-align: center;
     font-weight: 400;
     text-transform: uppercase;
-    color: rgb(255, 140, 45);
+    color: var(--main-color);
     transition: 0.3s ease-in-out;
 }
 .profile_page .col-left .avatar:hover span{
@@ -75,16 +80,28 @@
     outline: none;
     background: #fee;
     padding: 0 5px;
+    border-bottom: 1px solid #333;
 }
-.profile_page .col-left button{
+/* .profile_page .col-left button{
     background: #333;
     color: white;
     padding: 10px 25px;
     text-transform: uppercase;
     letter-spacing: 1.4px;
     margin: 10px 0;
-}
+} */
 
+button{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px;
+    margin: 8px auto;
+    box-sizing: border-box;
+    box-shadow: 0 2px 4px rgba(0,0,0, .2);
+    color: var(--black);
+    background:  var(--main-color);
+ }
 /* ----------- Col Right----------- */
 .profile_page .col-right{
     padding: 0 10px;

@@ -8,12 +8,12 @@ cloudinary.config({
 })
 
 
-
 const uploadCtrl = {
     uploadAvatar: (req, res) => {
         try {
             const file = req.files.file;
             
+
             cloudinary.v2.uploader.upload(file.tempFilePath, {
                 folder: 'avatar', width: 150, height: 150, crop: "fill"
             }, async(err, result) => {
@@ -26,6 +26,7 @@ const uploadCtrl = {
         
         } catch (err) {
             return res.status(500).json({msg: err.message})
+            
         }
     }
 

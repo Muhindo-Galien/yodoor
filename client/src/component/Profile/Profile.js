@@ -45,7 +45,7 @@ function Profile() {
     }
 
     const changeAvatar = async(e) => {
-        e.preventDefault(e.target.files)
+        e.preventDefault()
         try {
             const file = e.target.files[0]
 
@@ -62,7 +62,7 @@ function Profile() {
 
             setLoading(true)
             
-            const res = await axios.post('/api/user/upload_avatar', formData, {
+            const res = await axios.post('/api/user/upload_avatar', {formData}, {
                 headers: {'content-type': 'multipart/form-data', Authorization: token}
             })
             
@@ -137,7 +137,7 @@ function Profile() {
             {success && showSuccessMsg(success)}
             {loading && <h3>Loading.....</h3>}
         </div>
-        <div className="profile_page">
+        <div className="profile_page ">
             <div className="col-left">
                 <h2>{isAdmin ? "Admin Profile": "User Profile"}</h2>
 
