@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from '../../assets/logoyo.png';
+import logo from '../../assets/logoyo.jpg';
 import homepic from '../../assets/home1.jpg';
 import './topnav.css';
 import { Link } from 'react-router-dom';
@@ -58,7 +58,7 @@ const transForm = {
   return (
     <div className='topnav'>
 
-      <a href="#" className='logo'>
+      <a href="/" className='logo'>
         <img src={logo} alt="logo" />
       </a>
 
