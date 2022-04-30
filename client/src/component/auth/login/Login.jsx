@@ -8,6 +8,7 @@ import {showErrMsg, showSuccessMsg} from '../../utils/notification/Notification'
 import {dispatchLogin} from '../../../redux/actions/authAction'
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
+import { useAlert } from 'react-alert'
 
 const initialState = {
   email: '',
@@ -22,7 +23,7 @@ const Login = () => {
   const {email, password, err, success} = user;
   const dispatch = useDispatch()
   const navigate = useNavigate();
-
+  const alert = useAlert()
   const handleChangeInput = e => {
     const {name, value} = e.target
     setUser({...user, [name]:value, err: '', success: ''})
@@ -35,6 +36,7 @@ const Login = () => {
         const res = await axios.post('/api/user/login', {email, password})
         console.log(res);
         setUser({...user, err: '', success: res.data.msg})
+        alert.success(res.data.msg)
 
         localStorage.setItem('firstLogin', true)
 
@@ -43,7 +45,8 @@ const Login = () => {
 
     } catch (err) {
         err.response.data.msg && 
-        setUser({...user, err: err.response.data.msg, success: ''})
+        alert.error(err.response.data.msg)
+
     }
 }
 
@@ -51,8 +54,8 @@ const Login = () => {
     <>
       <div className="X">
       <h1>Login</h1>  
-      {err && showErrMsg(err)}
-      {success && showSuccessMsg(success)}
+      {/* {err && showErrMsg(err)}
+      {success && showSuccessMsg(success)} */}
       <form classNameName="s4" onSubmit={handleSubmit}>
         <ul className="lsn"> 
           <li><a href="#" id="gl"><span><FcGoogle/></span> Login with google</a></li>
