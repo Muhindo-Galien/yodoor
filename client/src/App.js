@@ -11,6 +11,9 @@ import {dispatchLogin, fetchUser, dispatchGetUser} from './redux/actions/authAct
 import axios from 'axios';
 import ResetPassword from './component/auth/ResetPassword';
 import Profile from './component/Profile/Profile';
+import Dashboard from './user/Dashboard/Dashboard';
+import DashboardSeller from './user/DashboardSeller/DashboardSeller';
+import Hotel from './Hotels/Hotel/NewHotel';
 
 function App() {
   const dispatch = useDispatch()
@@ -49,6 +52,9 @@ function App() {
       <Route path="/user/activate/:activation_token" element={<ActivationEmail/>} />
       <Route path="/user/reset/:token" element={<ResetPassword/>} />
       <Route path="/profile" element={<Profile/>} />
+      <Route path="/dashboard" element={auth.isLogged?<Dashboard/>:<Login/>} />
+      <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
+      <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
       <Route path="/rooms" element={<Room/>} />
     </Routes>
   );

@@ -27,7 +27,7 @@ const Login = () => {
   const handleChangeInput = e => {
     const {name, value} = e.target
     setUser({...user, [name]:value, err: '', success: ''})
-    console.log(user);
+    // console.log(user);
 
   }
   const handleSubmit = async e => {

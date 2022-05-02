@@ -7,6 +7,7 @@ import SideLinks from '../side likns/SideLinks';
 import {useSelector} from 'react-redux'
 import axios from 'axios'
 import { FaAngleDown } from 'react-icons/fa';
+import { MdDashboardCustomize } from 'react-icons/md';
 import ProDrop from './ProDrop';
 
 
@@ -45,6 +46,7 @@ const TopNav = () => {
 
 const userLink = () => {
     return <div className=" fas">
+
         <img src={user.avatar} alt="" className='prof'/><FaAngleDown onClick={()=>handelProfDrop()}/>
         {/* {user.name} <FaAngleDown/> */}
         <ProDrop dropit={isHandelProfDrop} handleLogout={handleLogout}/>
@@ -62,7 +64,7 @@ const transForm = {
         <img src={logo} alt="logo" />
       </a>
 
-      <nav className={isOpen?'navbar active':'navbar'}>
+      <nav className={isOpen?'navbar ':'navbar'}>
         <Link to='/'>
           <a  onClick={() => setIsOpen(!isOpen)}>Home</a>
         </Link>
@@ -81,7 +83,8 @@ const transForm = {
       </nav>
 
       <div className="icons">
-        <div className="fas fa-shopping-cart" onClick={()=>handeOpenIt()}></div>
+        {/* <div className="fas fa-shopping-cart" onClick={()=>handeOpenIt()}></div> */}
+        {isLogged&&<div className='fas'><Link to='/dashboard'><MdDashboardCustomize className='dash'/></Link></div>}
         {
                     isLogged
                     ? userLink()

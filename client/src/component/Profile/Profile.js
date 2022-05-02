@@ -16,7 +16,7 @@ const initialState = {
 }
 
 function Profile() {
-    const auth = useSelector(state => state.auth)
+    const auth = useSelector(state => state.auth);
     const token = useSelector(state => state.token)
 
     const users = useSelector(state => state.users)

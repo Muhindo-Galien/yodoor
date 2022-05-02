@@ -1,0 +1,19 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  }
+  
+.dashlink{
+    margin:0 ;
+    font-size: 1.6rem;
+    color: #13131a;
+    font-weight: normal;
+}
+.dashlink:hover{
+    color: var(--main-color);
+}
+.activated{
+    background-color: var(--main-color) !important;
+    color: #fff !important;
+}

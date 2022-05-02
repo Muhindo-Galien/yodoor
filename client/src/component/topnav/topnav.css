@@ -52,8 +52,11 @@ body{
 .btn:hover{
     letter-spacing: .1rem;
 }
+.dash{
+    color: #282c34;
+}
 .topnav{
-    background: white;
+    background: white !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -151,7 +154,7 @@ body{
         display: block;
         position: absolute;
         top: 100%;right: -100%;
-        background: #fff;
+        background: #fff !important;
         width: 30rem;
         height: calc(100vh - 9.5rem);
 
@@ -183,6 +186,7 @@ header a{
     color: white;
     text-transform: uppercase;
     letter-spacing: 1.5px;
+    background: var(--black) !important;
 }
 header ul li{
     display: inline-block;

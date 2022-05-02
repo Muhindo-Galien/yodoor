@@ -1,0 +1,15 @@
+.dashboardseller{
+    margin-top: 10rem;
+    padding: 2rem 7%;
+}
+.dashboard-text{
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    padding: 5rem;
+    background:  #13131a;
+    margin-bottom: 1rem;
+
+}
+.dashboard-text h1{
+    text-align: center;
+    color: var(--bg) !important;
+}

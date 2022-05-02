@@ -11,11 +11,6 @@ const ProDrop = ({handleLogout,dropit}) => {
             <Link to="/" onClick={handleLogout}>
                 <a>Logout</a>
             </Link>
-            {/* <ul className="drop-nav dropdown">
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/" onClick={handleLogout}>Logout</Link></li>
-        </ul> */}
-          
         </nav>
     </div>
   )

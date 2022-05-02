@@ -58,8 +58,8 @@ const userControllers = {
             sendEmail(email, url, "Verify your email address")
 
 
-            console.log(newUser);
-            console.log({activation_token});
+            // console.log(newUser);
+            // console.log({activation_token});
 
             res.json({msg: "Register success, Please sctivate you email to start"})
         } catch (error){
@@ -90,9 +90,9 @@ const userControllers = {
                 status:"success",
                 msg: "Account has been activated"
             })
-            console.log(user);
-            console.log("=========================================");
-            console.log({name, email, password});
+            // console.log(user);
+            // console.log("=========================================");
+            // console.log({name, email, password});
             
         } catch (error) {
             return res.status(SERVER_ERROR).json(
@@ -171,8 +171,8 @@ const userControllers = {
     },
     resetPassword: async (req, res) => {
         try {
-            const {password} = req.body
-            console.log(password)
+            const {password} = req.body;            
+ 
             const passwordHash = await bcrypt.hash(password, 12)
 
             await Users.findOneAndUpdate({_id: req.user.id}, {
