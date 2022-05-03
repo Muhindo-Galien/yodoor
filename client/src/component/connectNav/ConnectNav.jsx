@@ -9,7 +9,6 @@ const {Meta} =  Card;
 const ConnectNav = () => {
     const auth = useSelector(state => state.auth);
     const {user} = auth;
-    console.log(user.avatar);
   return (
     <div className='d-flex justify-content-around'>
       {/* <img src={user.avatar} alt="" /> */}

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import About from '../component/about/About'
 import Blog from '../component/blog/Blog'
 import Contact from '../component/contact/Contact'
@@ -10,7 +9,6 @@ import Hero from '../component/hero/Hero'
 import Press from '../component/press/Press'
 
 const Home = () => {
-  const {user} =useSelector((state)=>({...state}));
 
   return (
     <div >
@@ -21,8 +19,6 @@ const Home = () => {
       <Blog/>
       <Press/>
       <Footer/>
-      <p style={{color:"red"}}>{JSON.stringify(user)}</p>
-      <p style={{color:"red"}}>{JSON.stringify(user)}</p>
     </div>
   )
 }

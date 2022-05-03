@@ -37,6 +37,8 @@ function Profile() {
                 dispatch(dispatchGetAllUsers(res))
             })
         }
+        // console.log("token");
+        // console.log(token);
     },[token, isAdmin, dispatch, callback])
 
     const handleChange = e => {

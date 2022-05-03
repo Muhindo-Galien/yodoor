@@ -64,7 +64,7 @@ const transForm = {
         <img src={logo} alt="logo" />
       </a>
 
-      <nav className={isOpen?'navbar ':'navbar'}>
+      <nav className={isOpen?'navbar active':'navbar'}>
         <Link to='/'>
           <a  onClick={() => setIsOpen(!isOpen)}>Home</a>
         </Link>

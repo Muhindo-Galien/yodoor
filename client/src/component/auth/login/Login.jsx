@@ -34,7 +34,6 @@ const Login = () => {
     e.preventDefault()
     try {
         const res = await axios.post('/api/user/login', {email, password})
-        console.log(res);
         setUser({...user, err: '', success: res.data.msg})
         alert.success(res.data.msg)
 
