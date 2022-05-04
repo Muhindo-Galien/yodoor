@@ -22,7 +22,8 @@ const DashboardSeller = () => {
     setLoading(true);
     try {
       let res = await createConnectAccount(token);
-      console.log(res);
+      console.log("the response is==>",res);
+      window.location.href=res.data;
       setLoading(false);
 
     } catch (error) {

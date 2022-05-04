@@ -6,7 +6,7 @@ const NewHotel = () => {
     const {auth} = useSelector((state)=>({...state}))
   return (
     <div className='hotel'>
-        <h1>Hotel</h1>
+        <h1>Post a Hotel</h1>
         <p>{JSON.stringify(auth)}</p>
     </div>
   )

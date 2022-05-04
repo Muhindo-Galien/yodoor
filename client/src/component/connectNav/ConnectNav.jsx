@@ -19,10 +19,10 @@ const ConnectNav = () => {
         auth&&
         auth.user&&
         auth.user.stripe_seller&&
-        auth.user.stripe_seller.charges_enabled (
+        auth.user.stripe_seller.charges_enabled && (
           <>
-            <div>Pending balance</div>
-            <div>Payout Settings</div>
+            <div className='colorit'>Pending balance</div>
+            <div className='colorit'>Payout Settings</div>
           </>
         )
       }

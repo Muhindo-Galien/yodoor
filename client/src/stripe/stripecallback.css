@@ -1,0 +1,10 @@
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+  }
+
+.stripecallback{
+    margin-top: 10rem !important;
+    padding: 1.5rem 7%;
+}

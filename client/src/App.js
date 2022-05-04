@@ -14,6 +14,7 @@ import Profile from './component/Profile/Profile';
 import Dashboard from './user/Dashboard/Dashboard';
 import DashboardSeller from './user/DashboardSeller/DashboardSeller';
 import Hotel from './Hotels/Hotel/NewHotel';
+import StripeCallback from './stripe/StripeCallback';
 
 function App() {
   const dispatch = useDispatch()
@@ -55,6 +56,7 @@ function App() {
       <Route path="/dashboard" element={auth.isLogged?<Dashboard/>:<Login/>} />
       <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
       <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
+      <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
       <Route path="/rooms" element={<Room/>} />
     </Routes>
   );

@@ -1,5 +1,7 @@
 import ACTIONS from './index'
 import axios from 'axios'
+import { updateLocale } from 'moment'
+import { FcNext } from 'react-icons/fc'
 
 export const dispatchLogin = () => {
     return {
@@ -22,5 +24,15 @@ export const dispatchGetUser = (res) => {
             user: res.data,
             isAdmin: res.data.role === 1 ? true : false
         }
+    }
+}
+// update user in Localstorage
+
+export const updateInLocalStorage = (user,next)=>{
+    if(window.localStorage.getItem('firstLogin')){
+        let auth = JSON.parse(localStorage.getItem('firstLogin'))
+        auth.user = user;
+        localStorage.setItem('firstLogin', JSON.stringify(auth));
+        next();
     }
 }

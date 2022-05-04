@@ -37,7 +37,7 @@ const Login = () => {
         setUser({...user, err: '', success: res.data.msg})
         alert.success(res.data.msg)
 
-        localStorage.setItem('firstLogin', true)
+       localStorage.setItem('firstLogin', true)
 
         dispatch(dispatchLogin())
         navigate('/');
