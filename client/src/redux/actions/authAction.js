@@ -29,6 +29,7 @@ export const dispatchGetUser = (res) => {
 // update user in Localstorage
 
 export const updateInLocalStorage = (user,next)=>{
+    console.log(window.localStorage.getItem('firstLogin'));
     if(window.localStorage.getItem('firstLogin')){
         let auth = JSON.parse(localStorage.getItem('firstLogin'))
         auth.user = user;
@@ -36,3 +37,5 @@ export const updateInLocalStorage = (user,next)=>{
         next();
     }
 }
+
+

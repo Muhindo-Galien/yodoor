@@ -12,3 +12,21 @@ export const getAccountStatus = async(token) => {
     headers: {Authorization: token}})
     return res
 }
+export const getAccountBalance = async(token) => {
+    const res = axios.post('/api/get-account-balance',{},{
+    headers: {Authorization: token}})
+    return res
+}
+
+export const currencyFormatter = data=>{
+    return (data.amount/100).toLocaleString(data.currency, {
+        style:"currency",
+        currency:data.currency,
+    })
+}
+
+export const payoutSetting = async(token) => {
+    const res = axios.post('/api/payout-setting',{},{
+    headers: {Authorization: token}})
+    return res
+}

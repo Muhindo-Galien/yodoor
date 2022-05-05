@@ -7,7 +7,7 @@ const stripe = Stripe(process.env.STRIPE_SECRET);
 export const createConnectAccount = async(req,res)=>{
     // 1 find user from the bd
     const user = await Users.findById(req.user.id).exec();
-    console.log("User from DB ==>",user.stripe_account_id);
+    // console.log("User from DB ==>",user.stripe_account_id);
 
     // 2 fi user doesn't have any account, create one now
     if(!user.stripe_account_id){
@@ -33,6 +33,18 @@ export const createConnectAccount = async(req,res)=>{
     res.send(`${accountLink.url}?${queryString.stringify(accountLink)}`)
     console.log(`${accountLink.url}?${queryString.stringify(accountLink)}`);
 }
+const updateDelayDays = async(accountId)=>{
+    const account = await stripe.accounts.update(accountId,{
+        settings:{
+            payouts:{
+                schedule:{
+                    delay_days:7
+                },
+            },
+        },
+    });
+    return account;
+}
 
 export const getAccountStatus = async(req,res)=>{
     // console.log("Get account status from the server");
@@ -40,10 +52,12 @@ export const getAccountStatus = async(req,res)=>{
     const user = await Users.findById(req.user.id).exec();
     const account = await stripe.accounts.retrieve(user.stripe_account_id);
     // console.log("USER ACCOUNT RETRIEVE",account);
+        // update   delay_days
+    const updatedAccount = await updateDelayDays(account.id);
     const updatedUser = await Users.findByIdAndUpdate(
         user._id,
         {
-            stripe_seller: account,
+            stripe_seller: updatedAccount,
         },
         {
             new:true
@@ -55,4 +69,30 @@ export const getAccountStatus = async(req,res)=>{
         // console.log(updatedUser);
         res.send(updatedUser)
 
+}
+export const getAccountBalance = async(req,res)=>{
+    // 1 find user from the bd
+    const user = await Users.findById(req.user.id).exec();
+    const balance =  await stripe.balance.retrieve({
+        stripeAccount: user.stripe_account_id,
+    })
+    res.json(balance);
+    // console.log("Get Account Balance", balance);
+} 
+
+export const payoutSetting= async(req,res)=>{
+    try {
+        // 1 find user from the bd
+        const user = await Users.findById(req.user.id).exec();
+        const loginLink = await stripe.accounts.createLoginLink(
+            user.stripe_account_id,{
+                redirect_url: process.env.STRIPE_SETTING_REDIRECT_URL
+            }
+        )
+        
+        console.log("LOGIN KINK PAYOUT SETTING", loginLink);
+        res.json(loginLink)
+    } catch (error) {
+        console.log("Stripe payout setting error",error);   
+    }
 }

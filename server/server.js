@@ -8,7 +8,6 @@ import fileUpload from 'express-fileupload';
 const morgan = require('morgan')
 require('dotenv').config();
 
-
 const app = express();
 
 // DB connection

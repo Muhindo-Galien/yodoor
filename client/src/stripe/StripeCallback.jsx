@@ -6,7 +6,7 @@ import { getAccountStatus } from '../redux/actions/stripe'
 import {updateInLocalStorage} from '../redux/actions/authAction'
 
 const StripeCallback = ({history}) => {
-    const [loading,SetLoading] = useState(false);
+    // const [loading,SetLoading] = useState(false);
     const token = useSelector(state => state.token);
     const auth = useSelector(state => state.auth);
     const dispatch = useDispatch();
@@ -17,12 +17,13 @@ const StripeCallback = ({history}) => {
     const accountStatus = async()=>{
         try {
             const res = await getAccountStatus(token)
-            // console.log("USER ACCOUNT STATUS ON STRIPE CALLBACK", res);
+            // console.log("USER ACCOUNT STATUS ON STRIPE CALLBACK", res.data);
             updateInLocalStorage(res.data, ()=>{
                 dispatch({
                     type:"LOGIN",
                     payload:res.data
-                })
+                });
+                window.location.href="/dashboard/seller"
             })
         } catch (error) {
             console.log(error);

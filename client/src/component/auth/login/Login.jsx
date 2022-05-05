@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
-import {showErrMsg, showSuccessMsg} from '../../utils/notification/Notification'
 import {dispatchLogin} from '../../../redux/actions/authAction'
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
@@ -37,7 +36,7 @@ const Login = () => {
         setUser({...user, err: '', success: res.data.msg})
         alert.success(res.data.msg)
 
-       localStorage.setItem('firstLogin', true)
+       localStorage.setItem('firstLogin', JSON.stringify(res.data))
 
         dispatch(dispatchLogin())
         navigate('/');
