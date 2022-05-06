@@ -6,22 +6,26 @@ import AlgoliaPlaces from 'algolia-places-react';
 import { useAlert } from 'react-alert'
 import { MdOutlineDownloading } from 'react-icons/md';
 
+
+import { DatePicker, Select } from 'antd';
+import moment from 'moment';
+import { createHotel } from '../../redux/actions/hotel';
+
+const {Option} = Select;
 const config= {
   appId:process.env.REACT_ALGOLIA_APP_ID,
   apiKey: process.env.REACT_ALGOLIA_APP_API_KEY,
   language: "en",
   countries:["ug"]
- }
+}
 
 const NewHotel = () => {
-  const alert = useAlert()
   const token = useSelector(state => state.token);
   const auth = useSelector(state => state.auth);
   const [preview,setPreview]=useState("")
   const [values,setValues] = useState({
     title:"",
     content:"",
-    location:"",
     image:"",
     price:"",
     from:"",
@@ -29,8 +33,31 @@ const NewHotel = () => {
     bed:"",
   })
 
-  const handelSubmit = (e)=>{
+  const [location,setLocation] = useState();
+  const alert = useAlert()
+  const handelSubmit = async(e)=>{
+    e.preventDefault()
+    // console.log(values);
+    // console.log(location);
+    let hotelData = new FormData();
+    hotelData.append('title',title);
+    hotelData.append('content',content);
+    hotelData.append('location',location);
+    hotelData.append('price',price);
+    image && hotelData.append('image',image);
+    hotelData.append('from',from);
+    hotelData.append('to',to);
+    hotelData.append('bed',bed);
 
+    console.log([...hotelData]);
+
+    let res = await createHotel(token,hotelData)
+    console.log("HOTEL CREATED RES===>",hotelData);
+
+    alert.success("New room posted")
+    setTimeout(()=>{
+      window.location.reload();
+    },1000)
   }
 
   const handelImageChange = (e)=>{
@@ -44,12 +71,12 @@ const NewHotel = () => {
     // console.log(values);
   }
 
-  const {title,content,location,image,price,from,to,bed} = values;
+  const {title,content,image,price,from,to,bed} = values;
 
   const handelForm=()=>
     // Upload
-    (<form id="file-upload-form" class="uploader" onSubmit={handelSubmit}>
-      <input id="file-upload" type="file" name="fileUpload"  onChange={handelImageChange} accept="image/*"/>
+    (<form id="form-group" class="uploader" onSubmit={handelSubmit}>
+      <input id="file-upload" type="file" name="file"   onChange={handelImageChange} accept="image/*"/>
 
       <label for="file-upload" id="file-drag">
       {preview===""?"":<img id="file-image" src={preview} alt="Preview" class=" img img-fluid"/>}
@@ -71,7 +98,7 @@ const NewHotel = () => {
      type="text" 
      name="title"
      onChange={handelChange}
-     className="inputdata" 
+     className='form-control m-2'  
      placeholder="Title"
      value={title}
       />
@@ -80,49 +107,80 @@ const NewHotel = () => {
       placeholder="Price"
       name='price'  
       value={price}
-      className="inputdata"
+      className='form-control m-2' 
       onChange={handelChange}
       />
-      <input 
+      {/* <input 
       type="number"  
       placeholder="Number of Beds"
       name='bed'  
       value={bed}
-      className="inputdata"
+      className='form-control m-2' 
       onChange={handelChange}
-      />
+      /> */}
  
+      <Select 
+      onChange={(value)=>setValues({...values,bed:value})}
+      className="w-100 m-1"
+      size='large'
+      placeholder="Number of Beds"
+      >
+        <Option key={1}>{1}</Option>
+        <Option key={2}>{2}</Option>
+        <Option key={3}>{3}</Option>
+        <Option key={4}>{4}</Option>
+      </Select>
 
       <textarea 
       placeholder="Content..." 
       name='content'
       value={content}
       onChange={handelChange}
-      className="inputdata" 
+      className='form-control m-2' 
       ></textarea>
-         <div className="containerfluid">
+     
       
       <AlgoliaPlaces 
-        className="addressBox"
+        className='form-control m-2' 
         placeholder="Location" 
         defaultValue={location}
         options={config}
-        onChange={({suggestion})=> setValues({...values, location:suggestion})}
-     
-        />
-      </div>
-      <button  onclick="thanks()">Submit</button>
+        onChange={({suggestion})=> 
+        setLocation(suggestion.value)
+       }
+       />
+
+      {/* form-control m-2 */}
+      <DatePicker 
+      placeholder='From Date' 
+      className='form-control m-2' 
+
+      onChange={(data,dataString)=>
+      setValues({...values, from:dataString})}
+      disabledDate = {(current)=> current && current.valueOf( )< moment().subtract(1,'days')}
+      />
+
+      <DatePicker 
+      placeholder='To Date' 
+      className='form-control m-2' 
+      onChange={(data,dataString)=>setValues({...values, to:dataString})}
+      disabledDate = {(current)=> current && current.valueOf( )< moment().subtract(1,'days')}
+      
+      />
+      
+      <button className='btn btn-outline-primary m-2'  type='submit'>Save</button>
      </div>
     </form>)
   
   return (
     <div className='hotel'>
         <div className='dashboard-text'>
-          <h1>Post a Hotel</h1>
+          <h1>Add a room</h1>
       </div>
         {handelForm()}
         
-        {/* <p>{JSON.stringify(auth)}</p> */}
+        <prev>{JSON.stringify(values, null , 4)}</prev>
+        <prev>{JSON.stringify(location)}</prev>
     </div>
   )
 }
