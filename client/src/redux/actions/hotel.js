@@ -1,16 +1,15 @@
 import axios from 'axios'
 
-
-// export const createHotel = async (token,data) => {
-//     const res = await axios.post('/api/create-hotel',data, {
-//         headers: {Authorization: token}
-//     })
-//     return res
-// }
-
-export const createHotel = async(token,data) => {
-    const res =await axios.post('/api/create-hotel',data,{
-    headers: {Authorization: token}})
+export const allHotelRooms = async() => {
     
+    const res =await axios.get('/api/hotels')
     return res
+}
+export const allDays= (from,to)=>{
+    const day = 24 * 60 * 60 * 1000;
+    const start = new Date(from)
+    const end = new Date(to)
+    const difference = Math.round(Math.abs(start - end)/day) 
+    return difference
+
 }

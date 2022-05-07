@@ -23,11 +23,12 @@ const hotelSchema = new Schema({
     },
     postedBy:{
         type:ObjectId,
-        red: "Users",
+        ref: "Users",
     },
     image:{
-        type:Buffer,
-        contentType:String,
+        type:String,
+        required: "Image is required",
+
     },
     from:{
         type: Date,

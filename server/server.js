@@ -4,7 +4,7 @@ import fs from 'fs';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import fileUpload from 'express-fileupload';
+const fileUpload = require('express-fileupload');
 
 const morgan = require('morgan')
 require('dotenv').config();
@@ -23,11 +23,11 @@ then(console.log('DB connected successfully')).catch((err)=>console.log(`DB conn
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(fileUpload({
-  useTempFiles: true
-}));
-// app.use(bodyParser.urlencoded({ extended: false }))
+app.use(fileUpload());
+
+
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // routes midlware
 

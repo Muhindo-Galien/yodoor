@@ -5,21 +5,45 @@ import './room.css'
 import Footer from '../../component/footer/Footer'
 import Press from '../../component/press/Press'
 import Filter from '../../component/filter/Filter'
+import { currencyFormatter } from '../../redux/actions/stripe'
+import { allDays } from '../../redux/actions/hotel'
 
-const Room = () => {
+const Room = ({hotels}) => {
   return (
       <>
         <section className='rooms'>
             <Filter/>
-            <div className="row">
+            <pre>{JSON.stringify(hotels,null,4)}</pre>
+            {hotels.map((h)=>(
+                <div key={h._id}>{h.title}</div>
+            ))}
+           { hotels.map((h)=>(
+           <div className="row" key={h._id}>
                 <div className="content">
-                    <h3>Linda Hotel</h3>
+                    <h3>{h.title}</h3>
                     <p className='location'>
-                        <span className='fas fa-location-dot'></span> Goma/border/plot 245
+                        <span className='fas fa-location-dot'></span> {h.location}
                     </p>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis perspiciatis maxime alias voluptate laborum consectetur unde. Aliquam sequi perspiciatis doloribus blanditiis dolorem laudantium eaque vitae nostrum culpa voluptates? Eveniet, excepturi.</p>
+                    <p>{`${h.content.substring(1,150)}...`}</p>
+                    <p className='location'>            
+                       Number of bed:  <b>{h.bed}</b>
+                    </p>
+                    <p className='location'>
 
-                    <div className="price"><b>$20.99</b> <span>added on: 21st, Dec,2022</span></div>
+                        Available for :<b> {allDays(h.from, h.to)}  {allDays(h.from, h.to) <= 1 ? ' day':' days'}
+                    </b>
+                    </p>
+                    
+                    <p className='location'>
+                    Available from : <b>{new Date(h.from).toLocaleDateString()}</b>
+                    </p>                  
+
+                    <div className="price"><b>
+                    {
+                    currencyFormatter({
+                        amount:h.price,
+                        currency:"usd",
+                    })}</b> <span>added on: 21st, Dec,2022</span></div>
 
                     <div className="r-buttons">
                         <a className="btn r-more" style={{color:'#548CFF'}}>More Info</a>
@@ -27,9 +51,9 @@ const Room = () => {
                     </div>
                 </div>
                 <div className="image">
-                    <img src={home4} alt="home4" />
+                    <img src={h.image} alt={h.image} />
                 </div>
-            </div>
+            </div>))}
             <div className="row">
                 <div className="content">
                     <h3>Hius Hotel</h3>

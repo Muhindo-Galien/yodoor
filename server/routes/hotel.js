@@ -1,12 +1,13 @@
-import express from 'express';
-import { create } from '../controllers/hotel';
-const formidableMiddleware = require('express-formidable');
+const express = require('express')
+import { create,allHotels } from '../controllers/hotel';
 import auth from '../middleware/auth';
+const formidableMiddleware = require('express-formidable');
 
 
 // controllers
-const router = express.Router();
 
-router.post('/create-hotel',create);
+const router = express.Router();
+router.post('/create-hotel',auth,create);
+router.get('/hotels',allHotels);
 
 module.exports = router;

@@ -9,7 +9,8 @@ import { MdOutlineDownloading } from 'react-icons/md';
 
 import { DatePicker, Select } from 'antd';
 import moment from 'moment';
-import { createHotel } from '../../redux/actions/hotel';
+import axios from 'axios';
+
 
 const {Option} = Select;
 const config= {
@@ -35,29 +36,46 @@ const NewHotel = () => {
 
   const [location,setLocation] = useState();
   const alert = useAlert()
+
+
   const handelSubmit = async(e)=>{
     e.preventDefault()
     // console.log(values);
     // console.log(location);
     let hotelData = new FormData();
-    hotelData.append('title',title);
-    hotelData.append('content',content);
-    hotelData.append('location',location);
-    hotelData.append('price',price);
-    image && hotelData.append('image',image);
-    hotelData.append('from',from);
-    hotelData.append('to',to);
-    hotelData.append('bed',bed);
 
-    console.log([...hotelData]);
+    hotelData.append("title",title);
+    hotelData.append("content",content);
+    hotelData.append("location",location);
+    hotelData.append("price",price);
+    image && hotelData.append("image",image);
+    hotelData.append("from",from);
+    hotelData.append("to",to);
+    hotelData.append("bed",bed);
 
-    let res = await createHotel(token,hotelData)
-    console.log("HOTEL CREATED RES===>",hotelData);
+ 
+    fetch('/api/create-hotel',{
+          method:'POST',
+          body:hotelData, headers: {Authorization: token}
+        }).then((res)=>{
+          console.log("see")
+          if(res.status===200){
+              alert.success("New room posted")
+              setTimeout(()=>{
+                    window.location.reload();
+              },1000)
+          }else
+          {
 
-    alert.success("New room posted")
-    setTimeout(()=>{
-      window.location.reload();
-    },1000)
+            alert.error("fill each field")
+          }
+          
+        }).catch((err)=>{
+          console.log(err)
+          alert.error(err)
+        })
+
+
   }
 
   const handelImageChange = (e)=>{
@@ -75,8 +93,8 @@ const NewHotel = () => {
 
   const handelForm=()=>
     // Upload
-    (<form id="form-group" class="uploader" onSubmit={handelSubmit}>
-      <input id="file-upload" type="file" name="file"   onChange={handelImageChange} accept="image/*"/>
+    (<form id="form-group" class="uploader" onSubmit={handelSubmit} method='post'>
+      <input id="file-upload" type="file" name="image"   onChange={handelImageChange} accept="image/*"/>
 
       <label for="file-upload" id="file-drag">
       {preview===""?"":<img id="file-image" src={preview} alt="Preview" class=" img img-fluid"/>}

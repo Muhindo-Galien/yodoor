@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Route, Routes } from "react-router-dom";
 import ActivationEmail from "./component/auth/ActivationEmail";
 import ForgotPassword from "./component/auth/ForgotPassword";
@@ -15,11 +15,24 @@ import Dashboard from './user/Dashboard/Dashboard';
 import DashboardSeller from './user/DashboardSeller/DashboardSeller';
 import Hotel from './Hotels/Hotel/NewHotel';
 import StripeCallback from './stripe/StripeCallback';
+import TryIT from './Hotels/TryIT';
+import { load } from 'algolia-places-react';
+import { allHotelRooms } from './redux/actions/hotel';
 
 function App() {
   const dispatch = useDispatch()
   const token = useSelector(state => state.token)
   const auth = useSelector(state => state.auth)
+  const [hotels,setHotels] = useState([])
+
+  useEffect(()=>{
+    loadAllHotels()
+  },[])
+
+  const loadAllHotels = async() =>{
+    let res = await allHotelRooms();
+    setHotels(res.data);
+  }
 
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
@@ -57,7 +70,9 @@ function App() {
       <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
       <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
       <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
-      <Route path="/rooms" element={<Room/>} />
+      <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
+      <Route path="/tryit" element={auth.isLogged?<TryIT/>:<Login/>} />
+      <Route path="/rooms" element={<Room hotels={hotels}/>} />
     </Routes>
   );
 }
