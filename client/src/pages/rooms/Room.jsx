@@ -7,9 +7,17 @@ import Press from '../../component/press/Press'
 import Filter from '../../component/filter/Filter'
 import { currencyFormatter } from '../../redux/actions/stripe'
 import { allDays } from '../../redux/actions/hotel'
+import { Link, useNavigate } from 'react-router-dom'
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
 
 const Room = ({hotels}) => {
+    const navigate = useNavigate();
+    const handelHotelDelete = ()=>{
+        console.log("hello there");
+    }
   return (
+      
       <>
         <section className='rooms'>
             <Filter/>
@@ -46,8 +54,14 @@ const Room = ({hotels}) => {
                     })}</b> <span>added on: 21st, Dec,2022</span></div>
 
                     <div className="r-buttons">
-                        <a className="btn r-more" style={{color:'#548CFF'}}>More Info</a>
+                        <a className="btn r-more" onClick={()=>navigate(`/hotel/${h._id}`)} style={{color:'#548CFF'}}>More Info</a>
                         <a className="btn">Book Now</a>
+                    </div>
+                    <div className="d-flex justify-content-between h1">
+                        <Link to={`/hotel/edit/${h._id}`}>
+                            <FaEdit className='text-warning'/>
+                        </Link>
+                        <MdDelete onClick={()=>handelHotelDelete(h._id)}className="text-danger"/>
                     </div>
                 </div>
                 <div className="image">

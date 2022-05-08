@@ -23,7 +23,12 @@ then(console.log('DB connected successfully')).catch((err)=>console.log(`DB conn
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(fileUpload());
+app.use(fileUpload({
+  createParentPath: true,
+  limits: { 
+      fileSize: 2 * 1024 * 1024 * 1024 //2MB max file(s) size
+  },
+}));
 
 
 app.use(bodyParser.json({limit: '50mb'}));

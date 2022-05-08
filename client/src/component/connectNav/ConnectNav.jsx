@@ -42,7 +42,7 @@ const ConnectNav = () => {
       }
     }
   return (
-    <div className='d-flex justify-content-around'>
+    <div className='navigation'>
       {/* <img src={user.avatar} alt="" /> */}
       <Card>
         <Meta avatar={<img src={user.avatar}alt={user.name} className="imageavatar" />} title={user.name} description={`Joined ${moment(user.createdAt).fromNow()}`}/>
@@ -55,7 +55,7 @@ const ConnectNav = () => {
           <>
             
               <Ribbon text="Available" color="#13131a">
-                <Card className='bg-light pt-1'>
+                <Card className='bg-light pt-1 allcards'>
                   {balance&&balance.pending&&(balance.pending).map((bp,i)=>(
                     <span key={i} className="h1">{currencyFormatter(bp)}</span>
                   ))}
@@ -63,8 +63,8 @@ const ConnectNav = () => {
               </Ribbon>
           
               <Ribbon text="Payouts" color="#13131a" >
-                <Card className='bg-light pointer' onClick={handelPayoutSettings}>
-                <MdSettings className='h1 mt-4'/>
+                <Card className='bg-light pointer allcards' onClick={handelPayoutSettings}>
+                <MdSettings className='h1  settings'/>
                 </Card>
               </Ribbon>
           </>

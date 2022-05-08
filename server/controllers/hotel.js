@@ -16,7 +16,7 @@ export const create = async(req,res)=>{
 
       if(req.files.image){
         hotel.image = files.image.name;
-        // hotel.image.contentType = files.image.mimetype;
+        hotel.image.contentType = files.image.mimetype;
       }
 
       hotel.save((err,result)=>{
@@ -47,4 +47,12 @@ export const allHotels = async(req,res)=>{
 
   console.log(allHomeRooms);
   res.json(allHomeRooms);
+}
+
+export const imageAsked = async(req,res)=>{
+  let hotel = await Hotel.findById(req.params.hotelId).exec()
+  if(hotel&&hotel!==null){
+    res.set('Content-Type',hotel.image.contentType);
+    return res.json(hotel.image);
+  }
 }

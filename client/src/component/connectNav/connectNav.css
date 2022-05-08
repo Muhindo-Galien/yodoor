@@ -7,3 +7,30 @@
 .pointer{
     cursor: pointer;
 }
+.navigation{
+    display: flex;
+    justify-content: space-between;
+}
+.settings{
+    margin-top: 2rem;
+}
+@media (max-width: 350px){
+    .navigation{
+        display: block;
+        margin-bottom: 2px;
+    }
+}
+@media (max-width: 450px) {
+    .navigation{
+        display: block;
+    }
+    .allcards{
+        margin-top: 1rem;
+    }
+    .settings{
+        font-size: 50px;
+    }
+}
+@media (max-width: 991px) {
+
+}
