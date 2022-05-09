@@ -116,7 +116,7 @@ const NewHotel = () => {
      type="text" 
      name="title"
      onChange={handelChange}
-     className='form-control m-2'  
+     className='inputdata'  
      placeholder="Title"
      value={title}
       />
@@ -125,7 +125,7 @@ const NewHotel = () => {
       placeholder="Price"
       name='price'  
       value={price}
-      className='form-control m-2' 
+      className='inputdata' 
       onChange={handelChange}
       />
       {/* <input 
@@ -133,7 +133,7 @@ const NewHotel = () => {
       placeholder="Number of Beds"
       name='bed'  
       value={bed}
-      className='form-control m-2' 
+      className='inputdata' 
       onChange={handelChange}
       /> */}
  
@@ -150,16 +150,18 @@ const NewHotel = () => {
       </Select>
 
       <textarea 
+       className='inputdata' 
       placeholder="Content..." 
       name='content'
       value={content}
       onChange={handelChange}
-      className='form-control m-2' 
       ></textarea>
      
-      
+      <div className='containerfluid'>
+        
       <AlgoliaPlaces 
-        className='form-control m-2' 
+         
+        className="w-100 m-1"
         placeholder="Location" 
         defaultValue={location}
         options={config}
@@ -167,11 +169,13 @@ const NewHotel = () => {
         setLocation(suggestion.value)
        }
        />
+  
+      </div>
 
-      {/* form-control m-2 */}
+      {/* inputdata */}
       <DatePicker 
       placeholder='From Date' 
-      className='form-control m-2' 
+      className='inputdata' 
 
       onChange={(data,dataString)=>
       setValues({...values, from:dataString})}
@@ -180,7 +184,7 @@ const NewHotel = () => {
 
       <DatePicker 
       placeholder='To Date' 
-      className='form-control m-2' 
+      className='inputdata' 
       onChange={(data,dataString)=>setValues({...values, to:dataString})}
       disabledDate = {(current)=> current && current.valueOf( )< moment().subtract(1,'days')}
       

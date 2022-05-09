@@ -13,7 +13,8 @@ export const create = async(req,res)=>{
       let files = req.files;
 
       let hotel = new Hotel(fields);
-
+      hotel.postedBy = req.user.id;
+      console.log("here is the id of the seller/user", req.user.id);
       if(req.files.image){
         hotel.image = files.image.name;
         hotel.image.contentType = files.image.mimetype;
@@ -25,7 +26,6 @@ export const create = async(req,res)=>{
           res.status(404).send("Error saving")
         }
         res.json(result)
-
       })
       
     } catch (err) {
@@ -40,12 +40,10 @@ export const create = async(req,res)=>{
 export const allHotels = async(req,res)=>{
 
   console.log("hello");
-  let allHomeRooms = await Hotel.find({})
-  .populate("postedBy", '_id name')
-  .exec();
+  let allHomeRooms = await Hotel.find({}).populate("postedBy", '_id name').exec();
   //after find==> .limit(3)
 
-  console.log(allHomeRooms);
+  // console.log(allHomeRooms);
   res.json(allHomeRooms);
 }
 
@@ -56,3 +54,22 @@ export const imageAsked = async(req,res)=>{
     return res.json(hotel.image);
   }
 }
+
+export const sellerHotels = async(req,res)=>{
+  const id = req.user.id;
+  let all = await Hotel.find({postedBy: id.toString()}).populate('postedBy','_id name').exec();
+  res.status(200).json(all)
+}
+
+
+export const remove = async(req,res)=>{
+  let removed = await Hotel.findByIdAndDelete(req.params.hotelId).exec();
+  res.status(200).json(removed)
+}
+
+// export const read = async(req,res)=>{
+//   // let hotel = await Hotel.findById(req.params.hotelId).exec();
+//   console.log("hotel backend");
+
+// }
+

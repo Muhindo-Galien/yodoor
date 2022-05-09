@@ -1,0 +1,100 @@
+
+:root{
+    --main-color:#548CFF;
+    --black: #FFFFFF;
+    --bg:#fff;;
+    --theme: var(--main-color);
+--dark-text: #5f6982;
+border-spacing: border-box !;
+  }
+.samllCard{ 
+    margin-top: 1rem;
+}
+.samllCard .row{
+    display: flex;
+    /* align-items: center; */
+    background: var(--black);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    
+}
+.samllCard .row .image{
+    flex: 1 1 45rem;
+    padding: 0px;
+
+}
+.samllCard .row .image img{
+    width: 100%;
+    padding: 0px;
+    
+}
+
+.samllCard .row .content{
+    flex: 1 1 45rem;
+    padding: 2.5rem;
+    margin: 0 !important; 
+    margin-right: 15rem !important;
+    
+}
+
+.samllCard .row .content h3{
+    font-size: 3rem;
+    color: #13131a;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+}
+
+.samllCard .row .content .location {
+    color: #548CFF;
+    font-size: 1.5rem;
+
+}
+.samllCard .row .content .location 
+span{
+    font-size: 1.5rem;
+    padding-right: .5rem;
+    text-transform: lowercase !important;
+}
+
+.samllCard .row .content .price{
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #6f6f72;
+    display: flex;
+    align-items: center;
+}
+.samllCard .row .content .price span{
+    font-size: 1rem;
+    padding-left: 2rem;
+    color: #548CFF;
+}
+.samllCard .row .content .r-buttons{
+    padding-top: 1rem;
+    
+
+}
+.samllCard .row .content .r-buttons .r-more{
+    margin-right: 2rem;
+    color: #548CFF !important;
+    background-color: transparent;
+    border: 1px solid var(--main-color);
+}
+
+@media (max-width: 450px) {
+    .samllCard .row .content{
+        margin: 0 !important; 
+    }
+    .samllCard .row .image{
+        order: 1;
+    }
+    .samllCard .row .content{
+        order: 2;
+    }
+}
+
+@media (max-width: 991px) {
+    .samllCard .row .content{
+        margin: 0 !important; 
+    }
+}

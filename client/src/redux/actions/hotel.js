@@ -13,3 +13,12 @@ export const allDays= (from,to)=>{
     return difference
 
 }
+export const sellerHotels = async(token)=> await axios.get('/api/hotel/seller-hotels', {
+    headers: {Authorization: token}
+})
+
+export const deleteHotel = async(token,hotelId)=> await axios.delete(`/api/delete-hotel/${hotelId}`, {
+    headers: {Authorization: token}
+})
+
+export const read = async(hotelId)=> await axios.get(`/api/hotel/${hotelId}`)

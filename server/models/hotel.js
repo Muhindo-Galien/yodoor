@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const {Schema} = mongoose;
 const {ObjectId} = mongoose;
-
+// const ObjectId = mongoose.Types.ObjectId;
 const hotelSchema = new Schema({
     title:{
         type: String,
@@ -22,7 +22,7 @@ const hotelSchema = new Schema({
         trim: true,
     },
     postedBy:{
-        type:ObjectId,
+        type: ObjectId,
         ref: "Users",
     },
     image:{

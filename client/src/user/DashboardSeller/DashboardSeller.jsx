@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ConnectNav from '../../component/connectNav/ConnectNav'
+import SmallCard from '../../pages/rooms/samllcard/SamllCard'
 import DashboardNav from '../../component/dashboardnav/DashboardNav'
 import "./dashboard_seller.css"
 import { ImHome } from 'react-icons/im';
 import { useAlert } from 'react-alert'
 import { createConnectAccount } from '../../redux/actions/stripe'
+import { deleteHotel, sellerHotels } from '../../redux/actions/hotel'
 
 const DashboardSeller = () => {
+
   const alert = useAlert();
   const [loading,setLoading] = useState(false)
+  const [hotels,setHotels] = useState([])
    // user
    const auth = useSelector(state => state.auth);
    const token = useSelector(state => state.token)
    const {user} = auth;
+ 
 
   //  console.log(token);
   // handel click functiion
@@ -36,6 +41,25 @@ const DashboardSeller = () => {
 
   }
 
+  useEffect(()=>{
+    loadSellersHotel()
+  
+  },[])
+
+  const loadSellersHotel =async()=>{
+    let {data} = await sellerHotels(token);
+    setHotels(data);
+  }
+  const handelHotelDelete = async(hotelId)=>{
+    if(!window.confirm("Are you sure?")) return;
+
+      deleteHotel(token,hotelId).then(res=>{
+        alert.success("Hotel deleted");
+        loadSellersHotel();
+      }
+      ).catch(err=>console.log(err))
+  }
+
   const connected = ()=>
       (<div className='container-fluid'>
           <div className="row">
@@ -49,7 +73,17 @@ const DashboardSeller = () => {
             </div>
 
           </div>
-            <p>Show all bookings and button to browser hotels</p>
+          
+          {/* here are your own hotels */}
+          {hotels&& hotels.map((h)=>
+          <SmallCard 
+          key={h._id}
+          h={h} 
+          viewMoreButton={false}
+          owner={true}
+          handelHotelDelete={handelHotelDelete}
+            />)}
+            
       </div>)
   
   const notConnected = ()=>

@@ -23,16 +23,7 @@ function App() {
   const dispatch = useDispatch()
   const token = useSelector(state => state.token)
   const auth = useSelector(state => state.auth)
-  const [hotels,setHotels] = useState([])
 
-  useEffect(()=>{
-    loadAllHotels()
-  },[])
-
-  const loadAllHotels = async() =>{
-    let res = await allHotelRooms();
-    setHotels(res.data);
-  }
 
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin')
@@ -72,7 +63,7 @@ function App() {
       <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
       <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
       <Route path="/tryit" element={auth.isLogged?<TryIT/>:<Login/>} />
-      <Route path="/rooms" element={<Room hotels={hotels}/>} />
+      <Route path="/rooms" element={<Room/>} />
     </Routes>
   );
 }

@@ -12,6 +12,7 @@ const {
     SENDER_EMAIL_ADDRESS
 } = process.env
 
+
 const oAuth2Client = new google.auth.OAuth2(
     MAILING_SERVICE_CLIENT_ID,
     MAILING_SERVICE_CLIENT_SECRET,

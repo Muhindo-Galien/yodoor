@@ -76,7 +76,7 @@ p {
     display: inline;
     margin: 0 auto 0.5rem auto;
     width: auto;
-    height: auto;
+    height: 100px;
     max-width: 280px;
     object-fit: cover;
 }
@@ -169,8 +169,17 @@ p {
     
 }
 .containerfluid{
-    margin-left: 2rem !important;
+    /* margin-left: 2rem !important; */
     margin-top: 1rem !important;
     max-width: 100% !important;
+    object-fit: cover;
     
 }
+.fitin{
+    background:  var(--main-color) !important;
+    box-shadow: transparent !important;
+    box-shadow: 0 0px 0px 0 rgba(0,0,0, .3) !important;
+}
+/* .AlgoliaPlaces{
+    color: #eee !important;
+} */
