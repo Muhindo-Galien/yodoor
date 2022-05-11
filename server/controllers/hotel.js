@@ -1,25 +1,44 @@
 const Hotel=  require('../models/hotel');
 import fs from 'fs'
-  
-
 export const create = async(req,res)=>{
-
- 
-  // console.log("here");
-  //   console.log(req.body);
-  //   console.log(req.files);
+  console.log("here");
+    // console.log(req.body);
+    // console.log(req.files);
     try {
       let fields = req.body;
-      let files = req.files;
-
-      let hotel = new Hotel(fields);
+      // console.log(fields.title);
+      let hotel = new Hotel({
+        title:fields.title,
+        content:fields.content,
+        price:fields.price,
+        location:fields.location,
+        bed:fields.bed,
+        from:fields.from,
+        to:fields.to
+      });
       hotel.postedBy = req.user.id;
-      console.log("here is the id of the seller/user", req.user.id);
-      if(req.files.image){
-        hotel.image = files.image.name;
-        hotel.image.contentType = files.image.mimetype;
+      // console.log("here is the id of the seller/user", req.user.id);
+      if(req.body.file){
+        hotel.image = req.body.file;
       }
-
+      if(!req.body.title){
+        res.status(400).json("Title is required")
+      }
+      if(!req.body.content){
+        res.status(400).json("Content is required")
+      }
+      if(!req.body.price){
+        res.status(400).json("Price is required")
+      }
+      if(!req.body.location){
+        res.status(400).json("location is required")
+      }
+      if(!req.body.from){
+        res.status(400).json("From is required")
+      }
+      if(!req.body.to){
+        res.status(400).json("To is required")
+      }
       hotel.save((err,result)=>{
         if(err){
           console.log("saving hotel error",err);

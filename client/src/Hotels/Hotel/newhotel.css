@@ -73,13 +73,23 @@ p {
 }
 
 .uploader #file-image {
-    display: inline;
     margin: 0 auto 0.5rem auto;
     width: auto;
     height: 100px;
     max-width: 280px;
     object-fit: cover;
 }
+
+/* .uploader .imagesP{
+    margin: 0 auto 0.5rem auto;
+    display: wrap;
+}
+.uploader .imagesP #file-image {
+    display: inline;
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+} */
 .uploader #file-image.hidden {
     display: none;
 }

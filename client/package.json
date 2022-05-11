@@ -9,7 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "algolia-places-react": "^1.6.1",
     "antd": "^4.20.2",
-    "axios": "^0.27.1",
+    "axios": "^0.27.2",
     "moment": "^2.29.3",
     "query-string": "^7.1.1",
     "react": "^17.0.2",

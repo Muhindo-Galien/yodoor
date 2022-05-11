@@ -5,12 +5,11 @@ const {ObjectId} = mongoose;
 const hotelSchema = new Schema({
     title:{
         type: String,
-        required: "Title is required",
+        // required: "Title is required",
     },
     content:{
         type: String,
         required: "Content is required",
-        maxlength: 1000,
     },
     location:{
         type: String,
@@ -26,17 +25,16 @@ const hotelSchema = new Schema({
         ref: "Users",
     },
     image:{
-        type:Buffer,
-        // contentType:String,
-        // required: "Image is required",
-
+        type:String,
     },
     from:{
         type: Date,
-        
+        required: "from is required",
     },
     to:{
         type: Date,
+        required: "to is required",
+
     },
     bed:{
         type: Number,

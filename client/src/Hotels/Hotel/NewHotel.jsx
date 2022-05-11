@@ -7,9 +7,9 @@ import { useAlert } from 'react-alert'
 import { MdOutlineDownloading } from 'react-icons/md';
 
 
-import { DatePicker, Select } from 'antd';
+import { DatePicker, Select, Upload } from 'antd';
 import moment from 'moment';
-import axios from 'axios';
+const axios = require('axios').default;
 
 
 const {Option} = Select;
@@ -22,7 +22,6 @@ const config= {
 
 const NewHotel = () => {
   const token = useSelector(state => state.token);
-  const auth = useSelector(state => state.auth);
   const [preview,setPreview]=useState("")
   const [values,setValues] = useState({
     title:"",
@@ -33,11 +32,17 @@ const NewHotel = () => {
     to:"",
     bed:"",
   })
+  const {title,content,image,price,from,to,bed} = values;
 
   const [location,setLocation] = useState();
   const alert = useAlert()
 
+  const handelImageChange = (e)=>{
+    // console.log(e.target.files[0]);
+    setPreview(URL.createObjectURL(e.target.files[0]))
+    setValues({...values, image:e.target.files[0]})
 
+  }
   const handelSubmit = async(e)=>{
     e.preventDefault()
     // console.log(values);
@@ -48,53 +53,74 @@ const NewHotel = () => {
     hotelData.append("content",content);
     hotelData.append("location",location);
     hotelData.append("price",price);
-    image && hotelData.append("image",image);
+    image && hotelData.append("file",image);
+    hotelData.append("upload_preset", "upload");
+  //   await fetch("https://api.cloudinary.com/v1_1/yodoor/image/upload",{
+  //         method:'POST',
+  //       body:hotelData,
+      
+  //   }).then(res=>{
+  //     const newHotel = {
+  //       ...values,image:res.url
+  //     }
+  //   }).catch(err=>console.log(err))
+  //  console.log(newHotel);
+    
     hotelData.append("from",from);
     hotelData.append("to",to);
     hotelData.append("bed",bed);
 
  
-    fetch('/api/create-hotel',{
-          method:'POST',
-          body:hotelData, headers: {Authorization: token}
-        }).then((res)=>{
-          console.log("see")
-          if(res.status===200){
-              alert.success("New room posted")
-              setTimeout(()=>{
-                    window.location.reload();
-              },1000)
-          }else
-          {
+    // fetch('/api/create-hotel',{
+    //       method:'POST',
+    //       body:hotelData, headers: {Authorization: token}
+    //     }).then((res)=>{
+    //       console.log("see")
+    //       if(res.status===200){
+    //           alert.success("New room posted")
+    //           setTimeout(()=>{
+    //                 window.location.reload();
+    //           },1000)
+    //       }else
+    //       {
 
-            alert.error("fill each field")
-          }
+    //         alert.error("fill each field")
+    //       }
           
-        }).catch((err)=>{
-          console.log(err)
-          alert.error(err)
-        })
+    //     }).catch((err)=>{
+    //       console.log(err)
+    //       alert.error(err)
+    //     })
 
 
+    try {
+      const uploadRes = await  axios.post('https://api.cloudinary.com/v1_1/yodoor/image/upload',hotelData);
+      // console.log("hello");
+      const {url}=uploadRes.data;
+      console.log(url);
+      hotelData.append('file', url)
+      await axios.post('/api/create-hotel',hotelData, {
+          headers: {Authorization: token}
+      })
+      console.log(uploadRes);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handelImageChange = (e)=>{
-    // console.log(e.target.files[0]);
-    setPreview(URL.createObjectURL(e.target.files[0]))
-    setValues({...values, image:e.target.files[0]})
 
-  }
+
   const handelChange = (e)=>{
     setValues({...values, [e.target.name]: e.target.value});
     // console.log(values);
   }
 
-  const {title,content,image,price,from,to,bed} = values;
+  
 
   const handelForm=()=>
     // Upload
     (<form id="form-group" class="uploader" onSubmit={handelSubmit} method='post'>
-      <input id="file-upload" type="file" name="image"   onChange={handelImageChange} accept="image/*"/>
+      <input id="file-upload" type="file" name="image"   onChange={handelImageChange} accept="image/*" />
 
       <label for="file-upload" id="file-drag">
       {preview===""?"":<img id="file-image" src={preview} alt="Preview" class=" img img-fluid"/>}
@@ -119,6 +145,7 @@ const NewHotel = () => {
      className='inputdata'  
      placeholder="Title"
      value={title}
+     
       />
       <input 
       type="number"  
@@ -127,6 +154,7 @@ const NewHotel = () => {
       value={price}
       className='inputdata' 
       onChange={handelChange}
+    
       />
       {/* <input 
       type="number"  
@@ -142,6 +170,7 @@ const NewHotel = () => {
       className="w-100 m-1"
       size='large'
       placeholder="Number of Beds"
+      
       >
         <Option key={1}>{1}</Option>
         <Option key={2}>{2}</Option>
@@ -160,13 +189,14 @@ const NewHotel = () => {
       <div className='containerfluid'>
         
       <AlgoliaPlaces 
-         
+ 
         className="w-100 m-1"
         placeholder="Location" 
         defaultValue={location}
         options={config}
         onChange={({suggestion})=> 
         setLocation(suggestion.value)
+        
        }
        />
   
@@ -174,6 +204,7 @@ const NewHotel = () => {
 
       {/* inputdata */}
       <DatePicker 
+      
       placeholder='From Date' 
       className='inputdata' 
 
@@ -183,14 +214,19 @@ const NewHotel = () => {
       />
 
       <DatePicker 
+
       placeholder='To Date' 
       className='inputdata' 
-      onChange={(data,dataString)=>setValues({...values, to:dataString})}
+      onChange={(dataString)=>setValues({...values, to:dataString})}
       disabledDate = {(current)=> current && current.valueOf( )< moment().subtract(1,'days')}
       
       />
-      
       <button className='btn btn-outline-primary m-2'  type='submit'>Save</button>
+      
+      {/* {!title || !content || !location || !price || !from || !bed ?
+      <button disabled className='btn btn-outline-primary m-2'  type='submit'>Save</button>:
+      <button className='btn btn-outline-primary m-2'  type='submit'>Save</button>
+    } */}
      </div>
     </form>)
   
