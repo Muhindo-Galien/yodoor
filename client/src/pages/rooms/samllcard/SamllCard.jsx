@@ -5,6 +5,8 @@ import { allDays } from '../../../redux/actions/hotel'
 import {Link, useNavigate } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import moment from 'moment'
+
 
 const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f}) => {
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f
                     <p className='location'>
                         <span className='fas fa-location-dot'></span> {h.location}
                     </p>
-                    <p>{`${h.content.substring(1,150)}...`}</p>
+                    <p>{`${h.content.substring(1,60)}...`}</p>
                     <p className='location'>            
                        Number of bed:  <b>{h.bed}</b>
                     </p>
@@ -35,7 +37,7 @@ const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f
                     currencyFormatter({
                         amount:h.price,
                         currency:"usd",
-                    })}</b> <span>added on: 21st, Dec,2022</span></div>
+                    })}</b> <span>added: {moment(h.createdAt).fromNow()}</span></div>
 
                     <div className="r-buttons">
 

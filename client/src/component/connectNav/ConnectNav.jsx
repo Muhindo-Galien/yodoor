@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Card,Avatar,Badge} from 'antd'
+import {Card,Badge} from 'antd'
 import moment from 'moment'
 import { useSelector } from 'react-redux';
 import "./connectNav.css"

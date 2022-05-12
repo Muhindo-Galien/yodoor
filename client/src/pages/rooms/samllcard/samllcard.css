@@ -27,6 +27,9 @@ border-spacing: border-box !;
 .samllCard .row .image img{
     width: 100%;
     padding: 0px;
+    height: 425px !important;
+    object-fit: cover;
+
     
 }
 
