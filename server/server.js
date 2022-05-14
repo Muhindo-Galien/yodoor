@@ -4,7 +4,7 @@ import fs from 'fs';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 
 const morgan = require('morgan')
 require('dotenv').config();
@@ -23,16 +23,13 @@ then(console.log('DB connected successfully')).catch((err)=>console.log(`DB conn
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(fileUpload({
-  createParentPath: true,
-  limits: { 
-      fileSize: 2 * 1024 * 1024 * 1024 //2MB max file(s) size
-  },
-}));
+// app.use(fileUpload({
+//   createParentPath: true,
+// }));
+//Special Middleware
+app.use(express.json());
 
 
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 // routes midlware
 

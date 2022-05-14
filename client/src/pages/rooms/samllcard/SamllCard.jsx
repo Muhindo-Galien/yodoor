@@ -53,7 +53,9 @@ const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f
                     </div>)}
                 </div>
                 <div className="image">
-                    <img src={h.image} alt={h.image} />
+                    {
+                        h.images[0]&&<img src={h.images[0].url} alt="first image"/>
+                    }
                 </div>
             </div>
     </div>

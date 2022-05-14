@@ -5,7 +5,7 @@ const {ObjectId} = mongoose;
 const hotelSchema = new Schema({
     title:{
         type: String,
-        // required: "Title is required",
+        required: "Title is required",
     },
     content:{
         type: String,
@@ -17,29 +17,36 @@ const hotelSchema = new Schema({
     },
     price:{
         type: Number,
-        required: "Price is required",
         trim: true,
     },
     postedBy:{
         type: ObjectId,
         ref: "Users",
     },
-    image:{
-        type:String,
-    },
+    images: [
+        {
+          public_id: {
+            type: String,
+            required: true,
+          },
+          url: {
+            type: String,
+            required: true,
+          },
+        },
+      ],
     from:{
         type: Date,
-        required: "from is required",
     },
     to:{
         type: Date,
-        required: "to is required",
 
     },
     bed:{
         type: Number,
-        required: "Number of bed is required",
+
     },
+
 }, 
 {
     timestamps:true

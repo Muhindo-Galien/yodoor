@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import "./newhotel.css"
 // import '../../component/auth/login/login.css'
 import AlgoliaPlaces from 'algolia-places-react';
@@ -22,88 +23,75 @@ const config= {
 
 const NewHotel = () => {
   const token = useSelector(state => state.token);
+  const navigate = useNavigate()
   const [preview,setPreview]=useState("")
+  const [loading,setLoading]=useState(false)
   const [values,setValues] = useState({
     title:"",
     content:"",
-    image:"",
+    images:"",
     price:"",
     from:"",
     to:"",
     bed:"",
   })
-  const {title,content,image,price,from,to,bed} = values;
+  const {title,content,images,price,from,to,bed} = values;
 
   const [location,setLocation] = useState();
   const alert = useAlert()
 
   const handelImageChange = (e)=>{
-    // console.log(e.target.files[0]);
+    console.log(e.target.files);
     setPreview(URL.createObjectURL(e.target.files[0]))
-    setValues({...values, image:e.target.files[0]})
+    setValues({...values, images:e.target.files})
 
   }
   const handelSubmit = async(e)=>{
     e.preventDefault()
-    // console.log(values);
-    // console.log(location);
-    let hotelData = new FormData();
-
-    hotelData.append("title",title);
-    hotelData.append("content",content);
-    hotelData.append("location",location);
-    hotelData.append("price",price);
-    image && hotelData.append("file",image);
-    hotelData.append("upload_preset", "upload");
-  //   await fetch("https://api.cloudinary.com/v1_1/yodoor/image/upload",{
-  //         method:'POST',
-  //       body:hotelData,
-      
-  //   }).then(res=>{
-  //     const newHotel = {
-  //       ...values,image:res.url
-  //     }
-  //   }).catch(err=>console.log(err))
-  //  console.log(newHotel);
-    
-    hotelData.append("from",from);
-    hotelData.append("to",to);
-    hotelData.append("bed",bed);
-
- 
-    // fetch('/api/create-hotel',{
-    //       method:'POST',
-    //       body:hotelData, headers: {Authorization: token}
-    //     }).then((res)=>{
-    //       console.log("see")
-    //       if(res.status===200){
-    //           alert.success("New room posted")
-    //           setTimeout(()=>{
-    //                 window.location.reload();
-    //           },1000)
-    //       }else
-    //       {
-
-    //         alert.error("fill each field")
-    //       }
-          
-    //     }).catch((err)=>{
-    //       console.log(err)
-    //       alert.error(err)
-    //     })
 
 
     try {
-      const uploadRes = await  axios.post('https://api.cloudinary.com/v1_1/yodoor/image/upload',hotelData);
-      // console.log("hello");
-      const {url}=uploadRes.data;
-      console.log(url);
-      hotelData.append('file', url)
-      await axios.post('/api/create-hotel',hotelData, {
-          headers: {Authorization: token}
-      })
-      console.log(uploadRes);
+      setLoading(true);
+      let hotelData = new FormData();
+      hotelData.append("title",title);
+      hotelData.append("content",content);
+      hotelData.append("location",location);
+      hotelData.append("price",price);
+      hotelData.append("from",from);
+      hotelData.append("to",to);
+      hotelData.append("bed",bed);
+      if(images) {
+        for (let i = 0;i <images.length; i++){
+          hotelData.append('images',images[i])
+    }}
+    console.log([...hotelData]);
+    const res =await fetch(`/api/create-hotel`,{
+      method:"POST",
+      body:hotelData,
+      headers: {Authorization: token}
+  })
+
+  if(res.ok){
+    setLoading(false);
+    setValues({})
+    setTimeout(()=>{
+      navigate("/dashboard/seller")
+    },1000)
+    alert.success("Room created!")
+    setValues({
+      title:"",
+      content:"",
+      images:"",
+      price:"",
+      from:"",
+      to:"",
+      bed:"",
+    })
+}
+    console.log(res)
     } catch (error) {
+    alert.error(error.massage)
+      setLoading(false);
       console.log(error);
     }
   }
@@ -120,7 +108,7 @@ const NewHotel = () => {
   const handelForm=()=>
     // Upload
     (<form id="form-group" class="uploader" onSubmit={handelSubmit} method='post'>
-      <input id="file-upload" type="file" name="image"   onChange={handelImageChange} accept="image/*" />
+      <input id="file-upload" type="file" name="images" accept='image/*' multiple onChange={handelImageChange} />
 
       <label for="file-upload" id="file-drag">
       {preview===""?"":<img id="file-image" src={preview} alt="Preview" class=" img img-fluid"/>}
@@ -221,12 +209,11 @@ const NewHotel = () => {
       disabledDate = {(current)=> current && current.valueOf( )< moment().subtract(1,'days')}
       
       />
-      <button className='btn btn-outline-primary m-2'  type='submit'>Save</button>
       
-      {/* {!title || !content || !location || !price || !from || !bed ?
+      {!title || !content || !location || !price || !from || !bed || !images || loading?
       <button disabled className='btn btn-outline-primary m-2'  type='submit'>Save</button>:
       <button className='btn btn-outline-primary m-2'  type='submit'>Save</button>
-    } */}
+    }
      </div>
     </form>)
   

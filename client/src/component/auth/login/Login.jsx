@@ -43,7 +43,7 @@ const Login = () => {
 
     } catch (err) {
         err.response.data.msg && 
-        alert.error(err.response.data.msg)
+        alert.error("Login Error,Try again!")
 
     }
 }
