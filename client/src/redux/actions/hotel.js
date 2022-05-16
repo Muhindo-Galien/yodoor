@@ -22,3 +22,7 @@ export const deleteHotel = async(token,hotelId)=> await axios.delete(`/api/delet
 })
 
 export const read = async(hotelId)=> await axios.get(`/api/hotel/${hotelId}`)
+
+export const updateHotel = async(token,hotelData,hotelId)=> await axios.put(`/api/hotel/edit/${hotelId}`,hotelData,{
+    headers: {Authorization: token}
+})

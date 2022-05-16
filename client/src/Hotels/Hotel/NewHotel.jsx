@@ -6,11 +6,9 @@ import "./newhotel.css"
 import AlgoliaPlaces from 'algolia-places-react';
 import { useAlert } from 'react-alert'
 import { MdOutlineDownloading } from 'react-icons/md';
-
-
-import { DatePicker, Select, Upload } from 'antd';
+import { DatePicker, Select} from 'antd';
 import moment from 'moment';
-const axios = require('axios').default;
+// const axios = require('axios').default;
 
 
 const {Option} = Select;
@@ -37,7 +35,7 @@ const NewHotel = () => {
   })
   const {title,content,images,price,from,to,bed} = values;
 
-  const [location,setLocation] = useState();
+  const [location,setLocation] = useState("");
   const alert = useAlert()
 
   const handelImageChange = (e)=>{
@@ -64,7 +62,7 @@ const NewHotel = () => {
         for (let i = 0;i <images.length; i++){
           hotelData.append('images',images[i])
     }}
-    console.log([...hotelData]);
+    // console.log([...hotelData]);
     const res =await fetch(`/api/create-hotel`,{
       method:"POST",
       body:hotelData,
@@ -107,21 +105,21 @@ const NewHotel = () => {
 
   const handelForm=()=>
     // Upload
-    (<form id="form-group" class="uploader" onSubmit={handelSubmit} method='post'>
+    (<form id="form-group" className="uploader" onSubmit={handelSubmit} method='post'>
       <input id="file-upload" type="file" name="images" accept='image/*' multiple onChange={handelImageChange} />
 
       <label for="file-upload" id="file-drag">
-      {preview===""?"":<img id="file-image" src={preview} alt="Preview" class=" img img-fluid"/>}
+      {preview===""?"":<img id="file-image" src={preview} alt="Preview" className=" img img-fluid"/>}
         <div id="start">
         
        
           {preview==="" &&(
            <>
               <div>Select a file (png,jpeg,jpg)</div>
-              <MdOutlineDownloading class="download" aria-hidden="true"/>
+              <MdOutlineDownloading className="download" aria-hidden="true"/>
             </>
           )}
-          <span id="file-upload-btn" class="btn btn-primary">{preview==="" ?"Select a file":"change image"}</span>
+          <span id="file-upload-btn" className="btn btn-primary">{preview==="" ?"Select a file":"change image"}</span>
         </div>
       </label>
       {/* added */}

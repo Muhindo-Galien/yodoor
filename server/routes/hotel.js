@@ -110,48 +110,68 @@ router.get('/hotel/:hotelId', async(req,res)=>{
 // Get single hotel starts here
 
 // hotel edit starts here
-router.put('/hotel/edit/:hotelId',auth,hotelOwner, async(req,res)=>{
+router.put('/hotel/edit/:hotelId',auth,hotelOwner,upload.array('images'), async(req,res)=>{
+  let files = req.files;
+
+  let hotel = await Hotel.findById(req.params.hotelId).exec();
   try {
-    let hotel =await Hotel.findById(req.params.hotelId).exec();
-    if (!hotel) {
-      res.status(404).json("hotel not found");
-    }
-     // Images Start Here
-  let images = [];
-
-  if (typeof req.body.images === "string") {
-    images.push(req.body.images);
-  } else {
-    images = req.body.images;
-  }
-
-  if (images !== undefined) {
     // Deleting Images From Cloudinary
-    for (let i = 0; i < hotel.images.length; i++) {
+    // console.log("files=>",files);
+    let hotel =await Hotel.findById(req.params.hotelId).exec();
+   let files = req.files;
+   
+
+    for (let i = 0; i < hotel.images.length; i++){
       await cloudinary.uploader.destroy(hotel.images[i].public_id);
+      console.log("hotel whit ",hotel.images[i].public_id,"was deleted");
     }
-
-    const imagesLinks = [];
-
-    for (let i = 0; i < images.length; i++) {
-      const result = await cloudinary.uploader.upload(images[i], {
-        folder: "",
-      });
-
-      imagesLinks.push({
-        public_id: result.public_id,
-        url: result.secure_url,
-      });
+    const urls = [];
+    if(files){
+      for (let file = 0; file<files.length;file++){
+        const {path} = files[file]
+        const newPath = await cloudinary.uploader.upload(path, {
+          folder: "YodoorR",});
+        urls.push(
+          {
+            public_id: newPath.public_id,
+            url: newPath.secure_url,
+          }
+        )
+         fs.unlinkSync(path)
     }
-
-    req.body.images = imagesLinks;
   }
-
-  hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
+  req.body.images = urls;
+  let data
+  if(urls.length === 0){
+     data = {
+      title:req.body.title || hotel.title,
+      content:req.body.content || hotel.content,
+      price:req.body.price || hotel.price,
+      location:req.body.location || hotel.location,
+      bed:req.body.bed|| hotel.bed,
+      from:req.body.from|| hotel.from,
+      to:req.body.to|| hotel.to,
+      images: hotel.images,
+  }
+}
+else{
+  data = {
+    title:req.body.title || hotel.title,
+    content:req.body.content || hotel.content,
+    price:req.body.price || hotel.price,
+    location:req.body.location || hotel.location,
+    bed:req.body.bed|| hotel.bed,
+    from:req.body.from|| hotel.from,
+    to:req.body.to|| hotel.to,
+    images: urls,
+}
+}
+  // console.log(data);
+  hotel = await Hotel.findByIdAndUpdate(req.params.hotelId,data,{
     new: true,
     runValidators: true,
     useFindAndModify: false,
-  });
+  })
 
   res.status(200).json({
     success: true,
