@@ -54,7 +54,7 @@ const Login = () => {
       <h1>Login</h1>  
       {/* {err && showErrMsg(err)}
       {success && showSuccessMsg(success)} */}
-      <form classNameName="s4" onSubmit={handleSubmit}>
+      <form className="s4" onSubmit={handleSubmit}>
         <ul className="lsn"> 
           <li><a href="#" id="gl"><span><FcGoogle/></span> Login with google</a></li>
           <li><a href="#" id="fb"><span><FaFacebookF/></span> Login with facebook</a></li>

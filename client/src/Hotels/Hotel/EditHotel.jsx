@@ -3,7 +3,7 @@ import { useParams ,useNavigate} from "react-router";
 import "./editHotel.css"
 import { useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
-import { DatePicker, Select } from 'antd';
+// import { DatePicker, Select } from 'antd';
 import { read, updateHotel } from '../../redux/actions/hotel';
 import HotelEditForm from '../../component/forms/HotelEditForm';
 

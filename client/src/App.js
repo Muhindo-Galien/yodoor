@@ -16,9 +16,10 @@ import DashboardSeller from './user/DashboardSeller/DashboardSeller';
 import Hotel from './Hotels/Hotel/NewHotel';
 import StripeCallback from './stripe/StripeCallback';
 import TryIT from './Hotels/TryIT';
-import { load } from 'algolia-places-react';
-import { allHotelRooms } from './redux/actions/hotel';
+// import { load } from 'algolia-places-react';
+// import { allHotelRooms } from './redux/actions/hotel';
 import EditHotel from './Hotels/Hotel/EditHotel';
+import SingleHotel from './Hotels/signle/SingleHotel';
 
 function App() {
   const dispatch = useDispatch()
@@ -62,7 +63,7 @@ function App() {
       <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
       <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
       <Route exact path="/hotel/edit/:hotelId" element={auth.isLogged?<EditHotel/>:<Login/>} />
-      <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
+      <Route path="/hotel/:hotelId" element={auth.isLogged?<SingleHotel/>:<Login/>} />
       <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
       <Route path="/tryit" element={auth.isLogged?<TryIT/>:<Login/>} />
       <Route path="/rooms" element={<Room/>} />

@@ -58,7 +58,7 @@ function Register() {
             {err && showErrMsg(err)}
             {success && showSuccessMsg(success)}
 
-            <form classNameName="s4"  onSubmit={handleSubmit}>
+            <form className="s4"  onSubmit={handleSubmit}>
                 
                 <label htmlFor="name">Name</label>
                 <input type="text"  id="name"

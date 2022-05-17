@@ -30,3 +30,9 @@ export const payoutSetting = async(token) => {
     headers: {Authorization: token}})
     return res
 }
+
+export const getSessionId = async(token,hotelId)=>
+await axios.post('/api/stripe-session-id',{
+    hotelId},{
+    headers: {Authorization: token}}
+    );

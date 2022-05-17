@@ -1,5 +1,5 @@
 const express = require('express')
-import { allHotels,sellerHotels ,remove} from '../controllers/hotel';
+import { allHotels,sellerHotels } from '../controllers/hotel';
 import { hotelOwner } from '../middleware';
 import auth from '../middleware/auth';
 const cloudinary = require('../utils/cloudinary')
@@ -98,12 +98,10 @@ router.delete('/delete-hotel/:hotelId',auth,hotelOwner,async(req,res)=>{
   console.log("Hotel deleted!");
   res.status(200).json(hotel)
 });
-//Deleting an hotel ends here 
-
 
 // Get single hotel starts here
 router.get('/hotel/:hotelId', async(req,res)=>{
-    let hotel =await Hotel.findById(req.params.hotelId).exec();
+    let hotel =await Hotel.findById(req.params.hotelId).populate("postedBy", '_id name').exec();
     res.json(hotel);
 
 })
@@ -111,14 +109,10 @@ router.get('/hotel/:hotelId', async(req,res)=>{
 
 // hotel edit starts here
 router.put('/hotel/edit/:hotelId',auth,hotelOwner,upload.array('images'), async(req,res)=>{
-  let files = req.files;
-
-  let hotel = await Hotel.findById(req.params.hotelId).exec();
   try {
     // Deleting Images From Cloudinary
-    // console.log("files=>",files);
     let hotel =await Hotel.findById(req.params.hotelId).exec();
-   let files = req.files;
+    let files = req.files;
    
 
     for (let i = 0; i < hotel.images.length; i++){

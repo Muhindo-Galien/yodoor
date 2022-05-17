@@ -6,9 +6,7 @@ export const allHotels = async(req,res)=>{
 
   console.log("hello");
   let allHomeRooms = await Hotel.find({}).populate("postedBy", '_id name').exec();
-  //after find==> .limit(3)
-
-  // console.log(allHomeRooms);
+ 
   res.json(allHomeRooms);
 }
 
