@@ -7,7 +7,7 @@ import "./signleHotel.css"
 import BtnSlider from './BtnSlider'
 import moment from 'moment'
 import { getSessionId } from '../../redux/actions/stripe';
-
+import {loadStripe} from'@stripe/stripe-js'
 
 
 const SingleHotel = () => {
@@ -61,7 +61,13 @@ const handelClick = async(e)=>{
   }
   // console.log(token, hotelId);
   let res = await getSessionId(token, hotelId);
-  console.log("session id resp", res.data.sessionId);
+  // console.log("session id resp", res.data.sessionId);
+  console.log(`${process.env.REACT_STRIPE_PUBLIC_KEY}`);
+  // const stripe = await loadStripe(`${process.env.REACT_APP_STIPE_KEY}`);
+  // console.log(stripe);
+  // stripe.redirectToCheckout({
+  //   sessionId:res.data.sessionId,
+  // }).then((result)=>console.log(result));
 }
   return (
     <div className='singleHotel'>
