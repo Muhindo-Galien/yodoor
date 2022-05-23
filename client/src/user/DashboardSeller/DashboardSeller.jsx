@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ConnectNav from '../../component/connectNav/ConnectNav'
-import SmallCard from '../../pages/rooms/samllcard/SamllCard'
+import SmallCard from '../../component/card/samllcard/SamllCard'
 import DashboardNav from '../../component/dashboardnav/DashboardNav'
 import "./dashboard_seller.css"
 import { ImHome } from 'react-icons/im';

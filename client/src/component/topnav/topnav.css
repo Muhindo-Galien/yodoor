@@ -16,7 +16,7 @@
     border: none;
     outline: none;
     text-transform: capitalize;
-    text-decoration: none !important;
+    text-decoration: none ;
     transition: .2s linear;
 }
 

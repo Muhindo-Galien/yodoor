@@ -21,3 +21,16 @@
     text-align: center;
     color: var(--bg) !important;
 }
+.btn-rect{
+    color: #fff;
+     background-color: #548CFF;
+     padding: 1rem 1.5rem;
+     border-radius: 2px;
+     right: 0;
+     width: auto;
+     margin-top: 2rem !important;
+     margin-right: 0px;
+}
+.btn-rect:hover{
+    color: #fff;
+}

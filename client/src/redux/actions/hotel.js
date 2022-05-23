@@ -26,3 +26,11 @@ export const read = async(hotelId)=> await axios.get(`/api/hotel/${hotelId}`)
 export const updateHotel = async(token,hotelData,hotelId)=> await axios.put(`/api/hotel/edit/${hotelId}`,hotelData,{
     headers: {Authorization: token}
 })
+
+export const userHotelBookings = async(token)=>await axios.get('/api/user-hotel-bookings',{
+    headers: {Authorization: token}
+})
+export const isAlreadyBooked = async(token,hotelId)=>await axios.get(`/api/is-already-booked/${hotelId}`,{
+    headers: {Authorization: token}
+})
+export const searchListings = async(query)=>await axios.post(`/api/search-listings`,query)

@@ -7,12 +7,13 @@
 
 .featured{
     background: var(--black);
-    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    
 }
 .featured .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(30rem, 1fr));
     gap: 3rem;
+    padding-bottom: 0px !important;
 }
 
 .featured .box-container .box{
@@ -30,22 +31,39 @@
 }
 .featured .box-container .box .content{
     position: absolute;
-    bottom: 4%;
-    color: #fff;    
-    padding-left: 2rem;
-    padding-right: 2rem;
+    /* bottom: 4%; */
+    width: 100%;
+    bottom: 0%;
+    color: #fff;   
+    /* padding-left: 2rem; 
+    padding-right: 2rem;  */
+    padding: 2rem;
+    padding-top: 1rem;
+    background: rgb(0, 0, 0) !important;
+    background: rgba(0, 0, 0, 0.5) !important; 
+    opacity: 1 !important;
+    border-radius: 4px !important;
+
 }
 .featured .box-container .box .content h3{
     font-size: 2.5rem;
     text-transform: uppercase ;
+    color: #fff !important;
+    font-weight: 400;
+   
+    
 }
 .featured .box-container .box .content p{
-    color: #eee;    
+    color: #ccc;    
     font-size: 1.2rem;
+    font-weight: 400;
+    
+
 }
 .featured .box-container .box .content .buttons{
     display: flex;
     justify-content: space-between;
+    background-color: none;
     
 }
 .featured .box-container .box .content .buttons .more{

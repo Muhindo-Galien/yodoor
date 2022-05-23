@@ -3,6 +3,9 @@
     --black: #FFFFFF;
     --bg:#fff;;
 }
+.contact{
+    padding-bottom: 0px !important;
+}
 
 .contact .row{
     display: flex;

@@ -20,6 +20,9 @@ import TryIT from './Hotels/TryIT';
 // import { allHotelRooms } from './redux/actions/hotel';
 import EditHotel from './Hotels/Hotel/EditHotel';
 import SingleHotel from './Hotels/signle/SingleHotel';
+import StripeSuccess from './stripe/StripeSuccess';
+import StripeCancel from './stripe/StripeCancel';
+import SearchResult from './Hotels/Results/SearchResult';
 
 function App() {
   const dispatch = useDispatch()
@@ -63,9 +66,12 @@ function App() {
       <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
       <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
       <Route exact path="/hotel/edit/:hotelId" element={auth.isLogged?<EditHotel/>:<Login/>} />
-      <Route path="/hotel/:hotelId" element={auth.isLogged?<SingleHotel/>:<Login/>} />
+      <Route path="/hotel/:hotelId" element={<SingleHotel/>} />
       <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
+      <Route path="/stripe/success/:hotelId" element={auth.isLogged?<StripeSuccess/>:<Login/>} />
+      <Route path="/stripe/cancel" element={auth.isLogged?<StripeCancel/>:<Login/>} />
       <Route path="/tryit" element={auth.isLogged?<TryIT/>:<Login/>} />
+      <Route path="/search-result" element={<SearchResult/>} />
       <Route path="/rooms" element={<Room/>} />
     </Routes>
   );

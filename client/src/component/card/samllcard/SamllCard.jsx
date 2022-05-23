@@ -35,7 +35,7 @@ const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f
                     <div className="price"><b>
                     {
                     currencyFormatter({
-                        amount:h.price,
+                        amount:h.price*100,
                         currency:"usd",
                     })}</b> <span>added: {moment(h.createdAt).fromNow()}</span></div>
 

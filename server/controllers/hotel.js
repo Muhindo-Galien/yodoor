@@ -1,11 +1,13 @@
 const Hotel=  require('../models/hotel');
+const Order=  require('../models/order');
 import fs from 'fs'
 
 
 export const allHotels = async(req,res)=>{
 
-  console.log("hello");
-  let allHomeRooms = await Hotel.find({}).populate("postedBy", '_id name').exec();
+  // console.log("hello");
+  // from:{$gte: new Date()}
+  let allHomeRooms = await Hotel.find({}).populate("postedBy", '_id name').sort({'_id':-1}).exec();
  
   res.json(allHomeRooms);
 }
@@ -24,9 +26,34 @@ export const remove = async(req,res)=>{
   res.status(200).json(removed)
 }
 
-// export const read = async(req,res)=>{
-//   // let hotel = await Hotel.findById(req.params.hotelId).exec();
-//   console.log("hotel backend");
+export const userHotelBookings = async(req,res)=>{
+  let all = await Order.find({orderedBy:req.user.id})
+  .select("session")
+  .populate("hotel")
+  .populate("orderedBy","_id name")
+  .exec();
+  res.json(all)
+  console.log("here are you bookings==>", all);
 
-// }
+}
+export const isAlreadyBooked=async(req,res)=>{
+    const{hotelId} =  req.params;
+    // find order of the current logged in user
+    const userOrders = await Order.find({orderedBy: req.user.id}).select('hotel').exec();
+    // check if hotelId is found in user orders array
+    let ids=[];
+    for(let i =0;i < userOrders.length;i++){
+      ids.push(userOrders[i].hotel.toString())
+    }
+    res.json({
+      ok: ids.includes(hotelId),
+    })
+}
 
+export const searchListings = async(req,res)=>{
+  const {location,date,bed}=req.body;
+  // console.log(location,date,bed);
+    const fromDate = date.split(",")
+  let results = await Hotel.find({from:{$gte:new Date(fromDate[0])},location}).exec();
+  res.json(results)
+}

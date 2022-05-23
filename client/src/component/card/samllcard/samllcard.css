@@ -83,6 +83,22 @@ span{
     background-color: transparent;
     border: 1px solid var(--main-color);
 }
+/* Modal Css */
+.ant-btn-primary{
+display: none;
+}
+.ant-btn-default{
+    background-color: tomato;
+    color: white;
+}
+.ant-btn-default:hover{
+    border: 1px solid tomato;
+    color: tomato;
+}
+.ant-modal-root p span{
+    color: var(--main-color);
+    text-transform: none;
+}
 
 @media (max-width: 450px) {
     .samllCard .row .content{

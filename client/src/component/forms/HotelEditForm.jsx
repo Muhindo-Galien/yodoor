@@ -10,7 +10,7 @@ const {Option} = Select;
 const config= {
   appId:process.env.REACT_ALGOLIA_APP_ID,
   apiKey: process.env.REACT_ALGOLIA_APP_API_KEY,
-  language: "en",
+  // language: "en",
 }
 const HotelEditForm = ({
     values,

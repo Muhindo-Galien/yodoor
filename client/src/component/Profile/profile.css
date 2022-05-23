@@ -92,13 +92,13 @@
 } */
 
 button{
-    width: 100%;
+    width: auto;
     border: none;
     outline: none;
     padding: 10px;
-    margin: 8px auto;
+    /* margin: 8px auto; */
     box-sizing: border-box;
-    box-shadow: 0 2px 4px rgba(0,0,0, .2);
+    /* box-shadow: 0 2px 4px rgba(0,0,0, .2); */
     color: var(--black);
     background:  var(--main-color);
  }

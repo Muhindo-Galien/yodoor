@@ -1,5 +1,5 @@
 const express = require('express')
-import { allHotels,sellerHotels } from '../controllers/hotel';
+import { allHotels,isAlreadyBooked,searchListings,sellerHotels, userHotelBookings } from '../controllers/hotel';
 import { hotelOwner } from '../middleware';
 import auth from '../middleware/auth';
 const cloudinary = require('../utils/cloudinary')
@@ -176,5 +176,8 @@ else{
   }
 })
 
+router.get('/user-hotel-bookings',auth, userHotelBookings)
+router.get('/is-already-booked/:hotelId',auth,isAlreadyBooked)
+router.post('/search-listings',searchListings)
 
 module.exports = router;

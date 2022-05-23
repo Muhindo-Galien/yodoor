@@ -8,3 +8,19 @@
     margin-top: 10rem !important;
     padding: 1.5rem 7%;
 }
+.success{
+  font-size: 6rem;
+  color: #548CFF;
+}
+.cancel{
+  font-size: 4rem;
+  color: tomato;
+}
+ .headingH2c, .headingH2{
+  background: #000;
+  color: white;
+}
+.headingH2c{
+  color: tomato;
+  }
+ 

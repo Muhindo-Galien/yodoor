@@ -1,4 +1,5 @@
 const Users=  require('../models/userModel');
+const Order=  require('../models/order');
 import queryString from 'query-string'
 import Stripe from "stripe";
 const stripe = Stripe(process.env.STRIPE_SECRET);
@@ -121,7 +122,7 @@ export const stripeSessionId = async(req,res) =>{
             quantity: 1,
           }],
         //   success and cancel urls
-          success_url: process.env.STRIPE_SUCCESS_URL,
+          success_url: `${process.env.STRIPE_SUCCESS_URL}/${item._id    }`,
           cancel_url: process.env.STRIPE_CANCEL_URL,
         // create payment intent with application fee and destination  charge 80%
           payment_intent_data: {
@@ -141,4 +142,47 @@ export const stripeSessionId = async(req,res) =>{
     res.send({
         sessionId: session.id,
     })
+}
+
+export const stripeSuccess = async(req,res)=>{
+        try {
+            // get the hotel id from req.body
+        const{hotelId} = req.body;
+        // find currently logged in user
+        const user = await Users.findById(req.user.id).exec();
+        // check if the user has session id
+        if(!user.stripeSession) return;
+
+        // retrieve stripe session id, based on session id we previously save in userDB
+        const session = await stripe.checkout.sessions.retrieve(user.stripeSession.id);
+        // if sessions payment status is paid, create order
+        if(session.payment_status==='paid'){
+            // check if order with that session id already exist by querying the collection
+            const orderExist =  await Order.findOne({
+                "session.id":session.id
+            }).exec();
+
+            if(orderExist){
+                res.json({
+                    success: true
+                })
+            }else{
+                let newOrder = await new Order({
+                    hotel:hotelId,
+                    session,
+                    orderedBy:user._id
+                }).save();
+                // remove user's stripeSession
+                await Users.findByIdAndUpdate(user._id,{
+                    $set:{stripeSession:{}}
+                })
+                res.json({
+                    success: true
+                })
+            }
+        }
+        } catch (error) {
+            console.log("STRIPE SUCCESS ERR", error);
+        }
+
 }

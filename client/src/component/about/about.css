@@ -4,13 +4,16 @@
     --bg:#fff;;
   
 }
-
+.about{
+    /* padding-bottom: 0px !important; */
+}
 .heading{
     text-align: center;
     text-transform: uppercase;
     color: #13131a;
     font-size: 4rem;
-    padding-bottom: 3.5rem;
+    padding-bottom: 2.5rem;
+    padding-top: 2.5rem;
 
 }
 .heading span{

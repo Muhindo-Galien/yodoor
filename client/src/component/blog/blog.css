@@ -10,6 +10,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(30rem, 1fr));
     gap: 3rem;
+    /* margin-top: 0px !important; */
 }
 .blogs .box-container .box {
     border-radius: .5rem;

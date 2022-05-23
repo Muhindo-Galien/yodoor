@@ -10,8 +10,9 @@ import { allDays, allHotelRooms } from '../../redux/actions/hotel'
 import { Link, useNavigate } from 'react-router-dom'
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import SamllCard from './samllcard/SamllCard'
+import SamllCard from '../../component/card/samllcard/SamllCard'
 import { useEffect, useState } from 'react'
+import Search from '../../component/forms/Search'
 
 const Room = () => {
     const [hotels,setHotels] = useState([])
@@ -30,6 +31,7 @@ const Room = () => {
       <>
         <section className='rooms'>
             <Filter/>
+            
             <pre>{JSON.stringify(hotels,null,4)}</pre>
            {hotels && hotels.map((h)=><SamllCard key={h._id} h={h}/>)}
     

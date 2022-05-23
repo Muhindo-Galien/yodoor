@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams ,useNavigate} from "react-router";
-import { allDays, read } from '../../redux/actions/hotel';
+import { allDays, isAlreadyBooked, read } from '../../redux/actions/hotel';
 import { useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
 import "./signleHotel.css"
@@ -13,11 +13,13 @@ import {loadStripe} from'@stripe/stripe-js'
 const SingleHotel = () => {
   const navigate =  useNavigate()
   const [hotel,setHotel] = useState([])
+  const [loading,setLoading] = useState(false)
   let { hotelId } = useParams();
   const auth = useSelector(state => state.auth);
   const token = useSelector(state => state.token)
   const [slideIndex, setSlideIndex] = useState(1)
-
+  const [alreadyBooked, setAlreadyBooked] = useState(false)
+  
   const nextSlide = () => {
       if(slideIndex !== dataSlider.length){
           setSlideIndex(slideIndex + 1)
@@ -48,6 +50,17 @@ const SingleHotel = () => {
   useEffect(()=>{
     loadSellerHotel()
 },[])
+
+useEffect(()=>{
+  if(auth && token){
+    isAlreadyBooked(token,hotelId).then((res)=>{
+      // console.log(res)
+    if(res.data.ok) setAlreadyBooked(true)
+
+    })
+  }
+},[])
+
 const loadSellerHotel =async()=>{
     let res = await read(hotelId)
     setHotel(res.data)
@@ -56,19 +69,23 @@ const dataSlider = hotel.images;
 
 const handelClick = async(e)=>{
   e.preventDefault();
-  if(!auth){
- navigate('/login')
+  setLoading(true)
+  console.log(auth);
+  if(!auth.isLogged){
+  navigate('/login');
+  
   }
   // console.log(token, hotelId);
   let res = await getSessionId(token, hotelId);
-  // console.log("session id resp", res.data.sessionId);
   console.log(`${process.env.REACT_STRIPE_PUBLIC_KEY}`);
-  // const stripe = await loadStripe(`${process.env.REACT_APP_STIPE_KEY}`);
-  // console.log(stripe);
-  // stripe.redirectToCheckout({
-  //   sessionId:res.data.sessionId,
-  // }).then((result)=>console.log(result));
+  const stripe = await loadStripe(`pk_test_51JfODqBKAAxF4P6LpTSlg3RhUJ2iKc8VuFPy3ATUScJ01xdqQvhYLAxE1fqKUhrlW1mWv5xRFfQ45pEoenNhI8SG00W7ig8Yot`);
+  console.log(stripe);
+  stripe.redirectToCheckout({
+    sessionId:res.data.sessionId,
+  }).then((result)=>console.log(result));
 }
+
+
   return (
     <div className='singleHotel'>
        <div className='singleHotelHeader'>
@@ -118,6 +135,7 @@ const handelClick = async(e)=>{
                     >
                         <img 
                         src={obj.url} 
+                        alt="slide_mage"
                         />
                     </div>
                 )
@@ -148,7 +166,19 @@ const handelClick = async(e)=>{
                 <div className="price">
                     <b>${hotel.price}</b>  <span> ({allDays(hotel.from, hotel.to)} {""} {allDays(hotel.from, hotel.to)<1? "day": "days"})</span>
                 </div>
-                <button className='btn' onClick={handelClick}>{auth && token ? "Book now":"Login to Book"}</button>
+                <button 
+                className='btn' 
+                onClick={handelClick}
+                disabled={loading || alreadyBooked}
+                >
+                  {loading?
+                  "Loading..."
+                  :alreadyBooked
+                  ? "Already Booked"
+                  :auth && token
+                  ?"Book now":
+                  "Login to Book"}
+                  </button>
             </div>
           </div>
         </div>

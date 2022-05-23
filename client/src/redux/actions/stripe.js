@@ -19,7 +19,7 @@ export const getAccountBalance = async(token) => {
 }
 
 export const currencyFormatter = data=>{
-    return (data.amount).toLocaleString(data.currency, {
+    return (data.amount/100).toLocaleString(data.currency, {
         style:"currency",
         currency:data.currency,
     })
@@ -36,3 +36,13 @@ await axios.post('/api/stripe-session-id',{
     hotelId},{
     headers: {Authorization: token}}
     );
+
+
+
+    
+export const stripeSuccessRequest = async(token,hotelId)=>
+    await axios.post
+    ('/api/stripe-success/',
+    {hotelId},
+    {headers: {Authorization: token}}
+        );
