@@ -78,7 +78,7 @@ const {title,content,images,price,from,to,bed,location} = values;
   return (
     <div className='edit'>
          <div className='dashboard-text'>
-            <h1>Edit Hotel</h1>
+            <h1>Edit Room</h1>
           </div>
           <div className="container-fluid">
             <div className="row">

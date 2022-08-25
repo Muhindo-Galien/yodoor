@@ -15,7 +15,7 @@
     margin: 0;
     border: none;
     outline: none;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     text-decoration: none ;
     transition: .2s linear;
 }
@@ -211,7 +211,7 @@ header ul li:hover{
     padding: 10px 0;
 }
 .drop-nav a{
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     overflow: hidden;
 }
 .drop-nav .dropdown{

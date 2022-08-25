@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import home2 from '../../assets/home2.jpg';
-import home6 from '../../assets/home6.jpg';
-import home1 from '../../assets/home1.jpg';
 import './featured.css'
 import { allHotelRooms } from '../../redux/actions/hotel';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +30,7 @@ const Featured = () => {
                </div>
                <div className="content">
                    <h3>{h.title}</h3>
-                   <p>{`${h.content.substring(1,60)}...`}</p>
+                   <p>{`${h.content.substring(1,50)}...`}</p>
                <div className="buttons">
                     <a className="btn more" onClick={()=>navigate(`/hotel/${h._id}`)} style={{color:'#548CFF'}}>More Info</a>
                     <a className="btn">Book Now</a>

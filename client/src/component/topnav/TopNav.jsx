@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import logo from '../../assets/logoyo.jpg';
 import homepic from '../../assets/home1.jpg';
@@ -73,6 +74,9 @@ const transForm = {
         </Link>
         <Link to='/blog'>
           <a onClick={() => setIsOpen(!isOpen)}>Blog</a>
+        </Link>
+        <Link to='/admin'>
+          <a onClick={() => setIsOpen(!isOpen)}>Admin</a>
         </Link>
         <Link to='/about'>
           <a onClick={() => setIsOpen(!isOpen)}>About us</a>

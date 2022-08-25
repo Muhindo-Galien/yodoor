@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ConnectNav from '../../component/connectNav/ConnectNav'
-import SmallCard from '../../component/card/samllcard/SamllCard'
+import SamllCardOb from "../../component/card/samllcard/SamllCardOb";
 import DashboardNav from '../../component/dashboardnav/DashboardNav'
 import "./dashboard_seller.css"
 import { ImHome } from 'react-icons/im';
@@ -60,31 +60,35 @@ const DashboardSeller = () => {
       ).catch(err=>console.log(err))
   }
 
-  const connected = ()=>
-      (<div className='container-fluid'>
-          <div className="row">
+  const connected = () => (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-10">
+          <h2>Your Hotels</h2>
+        </div>
 
-            <div className="col-md-10">
-              <h2 >Your Hotels</h2>
-            </div>
+        <div className="col-md-2">
+          <Link to="/hotels/new" className="btn">
+            + Add New
+          </Link>
+        </div>
+      </div>
 
-            <div className="col-md-2">
-              <Link to="/hotels/new" className='btn'>+ Add New</Link>
-            </div>
-
-          </div>
-          
-          {/* here are your own hotels */}
-          {hotels&& hotels.map((h)=>
-          <SmallCard 
-          key={h._id}
-          h={h} 
-          viewMoreButton={false}
-          owner={true}
-          handelHotelDelete={handelHotelDelete}
-            />)}
-            
-      </div>)
+      {/* here are your own hotels */}
+      {hotels &&
+        hotels.map((h) => (
+          <>
+            <SamllCardOb
+              key={h._id}
+              h={h}
+              viewMoreButton={false}
+              owner={true}
+              handelHotelDelete={handelHotelDelete}
+            />
+          </>
+        ))}
+    </div>
+  );
   
   const notConnected = ()=>
     (<div className='container-fluid'>
@@ -93,7 +97,7 @@ const DashboardSeller = () => {
             <div className="col-md-6 offset-md-3 text-center mt-5 notconnected">
               <div className="pt-5 pointer">
                 <ImHome className="h1"/>
-                <h1>Setup payouts to post hotel rooms</h1>
+                <h1>Setup payouts to post hotel/motel rooms</h1>
                 <p className="lead"><strong>Yodoor</strong> partners with stripe to transfer earnings to your back account</p>
               </div>
               <h2 >Connect with stripe</h2>

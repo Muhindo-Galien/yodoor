@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from 'react'
 import "./samllcard.css"
 import { currencyFormatter } from '../../../redux/actions/stripe'
@@ -10,9 +12,12 @@ import moment from 'moment'
 
 const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f}) => {
   const navigate = useNavigate();
+  console.log(h.verified);
   return (
     <div className='samllCard'>
            <div className="row" key={h._id}>
+            {h.verified == true ? (
+                <>
                 <div className="content">
                     <h3>{h.title}</h3>
                     <p className='location'>
@@ -57,6 +62,8 @@ const SamllCard = ({h,owner=false,viewMoreButton=true,handelHotelDelete = (f)=>f
                         h.images[0]&&<img src={h.images[0].url} alt="first image"/>
                     }
                 </div>
+                </>
+                ):""}
             </div>
     </div>
   )

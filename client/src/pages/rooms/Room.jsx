@@ -12,7 +12,7 @@ import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import SamllCard from '../../component/card/samllcard/SamllCard'
 import { useEffect, useState } from 'react'
-import Search from '../../component/forms/Search'
+
 
 const Room = () => {
     const [hotels,setHotels] = useState([])

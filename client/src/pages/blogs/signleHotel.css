@@ -1,0 +1,66 @@
+
+:root{
+  --main-color:#548CFF;
+  --black: #FFFFFF;
+  --bg:#fff;;
+  --theme: var(--main-color);
+--dark-text: #5f6982;
+border-spacing: border-box !;
+}
+.singleHotel{
+    margin-top: 10rem;
+    padding: 2rem 7%;
+    color: black;
+  }
+  
+  .singleHotelHeader{    
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    padding: 3rem;
+    background:  #13131a;
+    margin-bottom: 1rem;
+    border-radius: 2px;
+  }
+  .singleHotelHeader .sHotelHearder{
+    text-align: center;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: var(--bg) !important;
+
+  }
+  .singleHotelHeader .sHotelHearder h1{
+    text-transform: uppercase;
+    color: var(--bg) !important;
+
+  }
+  .booking-side{
+  padding: 3rem;
+  border: 1px solid var(--main-color);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+}
+ .booking-side p span{
+  color: var(--main-color);
+} 
+.price{
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #6f6f72;
+  display: flex;
+  align-items: center;
+}
+.price span{
+  font-size: 1.5rem;
+}
+.description h1{
+  color: var(--main-color);
+  text-transform: uppercase;
+
+}
+
+
+/*Responsive*/
+@media (max-width: 350px){
+  .description p{
+    padding-right: 0.5rem !important; 
+  }
+}

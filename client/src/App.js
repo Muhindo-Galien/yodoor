@@ -23,6 +23,9 @@ import SingleHotel from './Hotels/signle/SingleHotel';
 import StripeSuccess from './stripe/StripeSuccess';
 import StripeCancel from './stripe/StripeCancel';
 import SearchResult from './Hotels/Results/SearchResult';
+import SingleBlog from './pages/blogs/SingleHotel';
+// import AdminDashboard from './Admin/AdminDashboard';
+import GlobalAdmin from './Admin/GlobalAdmin';
 
 function App() {
   const dispatch = useDispatch()
@@ -55,24 +58,51 @@ function App() {
   },[token, dispatch])
   return (
     <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/forgot_password" element={<ForgotPassword/>} />
-      <Route path="/register" element={<Register/>} />
-      <Route path="/user/activate/:activation_token" element={<ActivationEmail/>} />
-      <Route path="/user/reset/:token" element={<ResetPassword/>} />
-      <Route path="/profile" element={<Profile/>} />
-      <Route path="/dashboard" element={auth.isLogged?<Dashboard/>:<Login/>} />
-      <Route path="/dashboard/seller" element={auth.isLogged?<DashboardSeller/>:<Login/>} />
-      <Route path="/hotels/new" element={auth.isLogged?<Hotel/>:<Login/>} />
-      <Route exact path="/hotel/edit/:hotelId" element={auth.isLogged?<EditHotel/>:<Login/>} />
-      <Route path="/hotel/:hotelId" element={<SingleHotel/>} />
-      <Route path="/stripe/callback" element={auth.isLogged?<StripeCallback/>:<Login/>} />
-      <Route path="/stripe/success/:hotelId" element={auth.isLogged?<StripeSuccess/>:<Login/>} />
-      <Route path="/stripe/cancel" element={auth.isLogged?<StripeCancel/>:<Login/>} />
-      <Route path="/tryit" element={auth.isLogged?<TryIT/>:<Login/>} />
-      <Route path="/search-result" element={<SearchResult/>} />
-      <Route path="/rooms" element={<Room/>} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/forgot_password" element={<ForgotPassword />} />
+      <Route path="/register" element={<Register />} />
+      <Route
+        path="/user/activate/:activation_token"
+        element={<ActivationEmail />}
+      />
+      <Route path="/user/reset/:token" element={<ResetPassword />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route
+        path="/dashboard"
+        element={auth.isLogged ? <Dashboard /> : <Login />}
+      />
+      <Route
+        path="/dashboard/seller"
+        element={auth.isLogged ? <DashboardSeller /> : <Login />}
+      />
+      <Route
+        path="/hotels/new"
+        element={auth.isLogged ? <Hotel /> : <Login />}
+      />
+      <Route
+        exact
+        path="/hotel/edit/:hotelId"
+        element={auth.isLogged ? <EditHotel /> : <Login />}
+      />
+      <Route path="/hotel/:hotelId" element={<SingleHotel />} />
+      <Route
+        path="/stripe/callback"
+        element={auth.isLogged ? <StripeCallback /> : <Login />}
+      />
+      <Route
+        path="/stripe/success/:hotelId"
+        element={auth.isLogged ? <StripeSuccess /> : <Login />}
+      />
+      <Route
+        path="/stripe/cancel"
+        element={auth.isLogged ? <StripeCancel /> : <Login />}
+      />
+      <Route path="/tryit" element={auth.isLogged ? <TryIT /> : <Login />} />
+      <Route path="/search-result" element={<SearchResult />} />
+      <Route path="/rooms" element={<Room />} />
+      <Route path="/blog" element={<SingleBlog />} />
+      <Route path="/admin" element={<GlobalAdmin />} />
     </Routes>
   );
 }

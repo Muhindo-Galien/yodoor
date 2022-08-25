@@ -46,6 +46,10 @@ const hotelSchema = new Schema({
         type: Number,
 
     },
+    verified:{
+        type:Boolean,
+        default: false,
+    },
 
 }, 
 {
