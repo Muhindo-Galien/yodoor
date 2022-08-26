@@ -55,6 +55,9 @@ body{
 .dash{
     color: #282c34;
 }
+.dashAdmin{
+    color: var(--main-color);
+}
 .topnav{
     background: white !important;
     display: flex;

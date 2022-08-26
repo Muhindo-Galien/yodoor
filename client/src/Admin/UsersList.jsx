@@ -13,7 +13,7 @@ import Sidebar from "./Sidebar";
 import { useSelector } from "react-redux";
 // import MetaData from "../layout/MetaData";
 
-const GlobalAdmin = () => {
+const UsersList = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [blogs, setBlogs] = useState([]);
@@ -22,16 +22,15 @@ const GlobalAdmin = () => {
   const deleteOrderHandler = (id) => {
     console.log("deleted");
   };
-    useEffect(() => {
-          loadUsers();
-    }, []);
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
-    const loadUsers = async () => {
-      let res = await myUsers(token);
-      setAllUsers(res.data);
-
-    };
-    console.log(allUsers);
+  const loadUsers = async () => {
+    let res = await myUsers(token);
+    setAllUsers(res.data);
+  };
+  console.log(allUsers);
   useEffect(() => {
     loadBlogs();
     loadHotels();
@@ -41,66 +40,26 @@ const GlobalAdmin = () => {
     let res = await allBlogs();
     setBlogs(res.data);
   };
- 
   const loadHotels = async () => {
     let res = await allHotelRooms();
     setHotels(res.data);
   };
-
-  let totalAmount = hotels.length;
-
-  const lineState = {
-    labels: ["Initial Amount", "Amount Earned"],
-    datasets: [
-      {
-        label: "TOTAL AMOUNT",
-        backgroundColor: ["tomato"],
-        hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, totalAmount],
-      },
-    ],
-  };
-
-  const doughnutState = {
-    labels: ["Out of Stock", "InStock"],
-    datasets: [
-      {
-        backgroundColor: ["#00A6B4", "#6800B4"],
-        hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [hotels.length, blogs.length],
-      },
-    ],
-  };
   const columns = [
-    { field: "id", headerName: "Hotel ID", minWidth: 300, flex: 1 },
-
+    { field: "id", headerName: "User ID", minWidth: 100, flex: 1 },
     {
-      field: "status",
-      headerName: "Status",
-      minWidth: 150,
-      flex: 0.5,
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "verified"
-          ? "greenColor"
-          : "redColor";
-      },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 150,
-      flex: 0.4,
-    },
-
-    {
-      field: "amount",
-      headerName: "Amount",
-      type: "number",
+      field: "username",
+      headerName: "USERNAME",
+      type: "string",
       minWidth: 270,
       flex: 0.5,
     },
-
+    {
+      field: "email",
+      headerName: "EMAIL-ADDRESS",
+      type: "string",
+      minWidth: 270,
+      flex: 0.5,
+    },
     {
       field: "actions",
       flex: 0.3,
@@ -111,7 +70,7 @@ const GlobalAdmin = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/edit/hotel/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/edit/${params.getValue(params.id, "id")}`}>
               <EditIcon />
             </Link>
 
@@ -130,13 +89,12 @@ const GlobalAdmin = () => {
 
   const rows = [];
 
-  hotels &&
-    hotels.forEach((item) => {
+  allUsers &&
+    allUsers.forEach((item) => {
       rows.push({
         id: item._id,
-        itemsQty: item.length,
-        amount: item.price,
-        status: item.verified,
+        email: item.email,
+        username: item.name,
       });
     });
   return (
@@ -170,7 +128,7 @@ const GlobalAdmin = () => {
       <div className="dashboard">
         <Sidebar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL HOTELS</h1>
+          <h1 id="productListHeading">ALL USERS</h1>
 
           <DataGrid
             rows={rows}
@@ -186,4 +144,4 @@ const GlobalAdmin = () => {
   );
 };
 
-export default GlobalAdmin;
+export default UsersList;

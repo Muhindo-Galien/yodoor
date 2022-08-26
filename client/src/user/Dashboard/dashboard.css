@@ -8,10 +8,12 @@
 .dashboard{
     margin-top: 10rem;
     padding: 2rem 7%;
+    width: 100%;
 }
 .dashboard-text{
     box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
     padding: 5rem;
+    width: 100%;
     background:  #13131a;
     margin-bottom: 1rem;
     

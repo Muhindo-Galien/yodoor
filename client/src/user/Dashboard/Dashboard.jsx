@@ -21,36 +21,37 @@ const Dashboard = () => {
     setBookings(res.data)
   }
   return (
-    
-    <div className="dashboard ">
-      <div className='dashboard-text'>
+    <div className="dashboardseller ">
+      <div className="dashboard-text">
         <h1>Buyer Dashboard</h1>
-        <ConnectNav/>
+        <ConnectNav />
       </div>
-        <DashboardNav/>
-        <div className='container-fluid'>
-          <div className="row">
+      <DashboardNav />
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-10">
+            <h2>Your bookings</h2>
+          </div>
 
-            <div className="col-md-10  ">
-              <h2 >Your bookings</h2>
-            </div>
-
-            <div className="col-md-2 mt-3">
-              <Link to="/rooms" className='btn-rect'>Browse Hotels</Link>
-            </div>
-
+          <div className="col-md-2 mt-3">
+            <Link to="/rooms" className="btn-rect">
+              Browse Hotels
+            </Link>
           </div>
         </div>
-        <div className="row">
-          {bookings.map((b)=>(
-            <BookingCard key={b._id} hotel={b.hotel} session={b.session} orderedBy={b.orderedBy}/>
-          ))}
-        </div>
+      </div>
+      <div className="row">
+        {bookings.map((b) => (
+          <BookingCard
+            key={b._id}
+            hotel={b.hotel}
+            session={b.session}
+            orderedBy={b.orderedBy}
+          />
+        ))}
+      </div>
     </div>
-    
-        
-   
-  )
+  );
 }
 
 export default Dashboard

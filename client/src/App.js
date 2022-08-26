@@ -26,6 +26,10 @@ import SearchResult from './Hotels/Results/SearchResult';
 import SingleBlog from './pages/blogs/SingleHotel';
 // import AdminDashboard from './Admin/AdminDashboard';
 import GlobalAdmin from './Admin/GlobalAdmin';
+import BlogList from './Admin/BlogList';
+import UsersList from './Admin/UsersList';
+import AdminEditHotel from './Admin/AdminEditHotel';
+import VerificationDocs from './Admin/VerificationDocs/VerificationDocs';
 
 function App() {
   const dispatch = useDispatch()
@@ -103,6 +107,11 @@ function App() {
       <Route path="/rooms" element={<Room />} />
       <Route path="/blog" element={<SingleBlog />} />
       <Route path="/admin" element={<GlobalAdmin />} />
+      <Route path="/admin/blogs" element={<BlogList />} />
+
+      <Route path="/admin/users" element={<UsersList />} />
+      <Route path="/admin/edit/hotel/:hotelId" element={<AdminEditHotel />} />
+      <Route path="/admin/documents" element={<VerificationDocs />} />
     </Routes>
   );
 }

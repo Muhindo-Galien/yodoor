@@ -2,6 +2,7 @@ const express = require("express");
 import {
   allUsers,
 } from "../controllers/admin";
+const Hotel = require("../models/hotel");
 import authAdmin from "../middleware/authAdmin";
 import auth from "../middleware/auth";
 const cloudinary = require("../utils/cloudinary");
@@ -163,5 +164,74 @@ router.get("/all-users",auth, authAdmin,allUsers);
 //     } catch (error) {}
 //   }
 // );
+// hotel edit starts here
+router.put('/admin/edit/hotel/:hotelId',auth,authAdmin,upload.array('images'), async(req,res)=>{
+  try {
+    // Deleting Images From Cloudinary
+    let hotel =await Hotel.findById(req.params.hotelId).exec();
+    let files = req.files;
+   
 
+    for (let i = 0; i < hotel.images.length; i++){
+      await cloudinary.uploader.destroy(hotel.images[i].public_id);
+      console.log("hotel whit ",hotel.images[i].public_id,"was deleted");
+    }
+    const urls = [];
+    if(files){
+      for (let file = 0; file<files.length;file++){
+        const {path} = files[file]
+        const newPath = await cloudinary.uploader.upload(path, {
+          folder: "YodoorR",});
+        urls.push(
+          {
+            public_id: newPath.public_id,
+            url: newPath.secure_url,
+          }
+        )
+         fs.unlinkSync(path)
+    }
+  }
+  req.body.images = urls;
+  let data
+  if(urls.length === 0){
+     data = {
+       title: req.body.title || hotel.title,
+       content: req.body.content || hotel.content,
+       price: req.body.price || hotel.price,
+       location: req.body.location || hotel.location,
+       bed: req.body.bed || hotel.bed,
+       from: req.body.from || hotel.from,
+       to: req.body.to || hotel.to,
+       images: hotel.images,
+       verified: req.body.verified || hotel.verified,
+     };
+}
+else{
+  data = {
+    title: req.body.title || hotel.title,
+    content: req.body.content || hotel.content,
+    price: req.body.price || hotel.price,
+    location: req.body.location || hotel.location,
+    bed: req.body.bed || hotel.bed,
+    from: req.body.from || hotel.from,
+    to: req.body.to || hotel.to,
+    verified: req.body.verified || hotel.verified,
+    images: urls,
+  };
+}
+  // console.log(data);
+  hotel = await Hotel.findByIdAndUpdate(req.params.hotelId,data,{
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  })
+
+  res.status(200).json({
+    success: true,
+    hotel,
+  });
+  } catch (error) {
+    
+  }
+})
 module.exports = router;

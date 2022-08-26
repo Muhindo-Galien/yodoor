@@ -5,6 +5,12 @@ export const allBlogs = async() => {
     const res =await axios.get('/api/blogs')
     return res
 }
+export const myUsers = async (token) => {
+         const res = await axios.get('/api/all-users', {
+           headers: { Authorization: token },
+         });
+         return res;
+       };
 export const allDays= (from,to)=>{
     const day = 24 * 60 * 60 * 1000;
     const start = new Date(from)

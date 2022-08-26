@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import "./samllcard/samllcard.css"
+import "./samllcard/samllcard.css";
 import { currencyFormatter } from '../../redux/actions/stripe'
 import { allDays } from '../../redux/actions/hotel'
 

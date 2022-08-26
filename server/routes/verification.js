@@ -81,7 +81,7 @@ router.post(
   }
 );
 
-router.get("/all-verification-request",authAdmin, async(req,res)=>{
+router.get("/admin/all-verification-request",auth,authAdmin, async(req,res)=>{
   let allVerificationRequest = await Verification.find({})
     .populate("roomManager", "_id name")
     .populate("verifiedHotel", "_id title")

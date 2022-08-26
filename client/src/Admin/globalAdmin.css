@@ -1,15 +1,61 @@
+.dashboard-text {
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+  padding: 5rem;
+  width: 100%;
+  background: #13131a;
+  margin-bottom: 6rem !important;
+  /* padding-bottom: 0 !important; */
+}
+.adminHeader {
+  margin-top: 10rem;
+  padding: 0 7%;
+  color: black;
+}
+.dashboard-text h1 {
+  text-align: center;
+  color: var(--bg) !important;
+}
+.hotels{
+  padding: 5rem;
+  background-color: orange;
+  color: white;
+  border-radius: 10px;
+}
+.blogs{
+  padding: 5rem;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+}
+.users{
+  padding: 5rem;
+  background-color: green;
+  color: white;
+  border-radius: 10px;
+}
+.Verification{
+  padding: 5rem;
+  background-color: skyblue;
+  color: white;
+  border-radius: 10px;
+}
+
+/* start */
+
 .dashboard {
   width: 100vw;
   max-width: 100%;
   display: grid;
   grid-template-columns: 1fr 5fr;
   position: absolute;
+  padding-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 .dashboardContainer {
   border-left: 1px solid rgba(0, 0, 0, 0.13);
   background-color: rgb(255, 255, 255);
-  padding: 3rem 0;
+  /* padding: 3rem 0; */
 }
 
 .dashboardContainer > h1 {
