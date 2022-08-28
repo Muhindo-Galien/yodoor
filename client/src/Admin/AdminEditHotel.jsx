@@ -86,6 +86,7 @@ const AdminEditHotel = () => {
 
   return (
     <div className="edit">
+      
       <div className="dashboard-text">
         <h1>Update Room</h1>
       </div>

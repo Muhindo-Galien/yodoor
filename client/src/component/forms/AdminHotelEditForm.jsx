@@ -61,6 +61,19 @@ const AdminHotelEditForm = ({
           </span>
         </div>
       </label>
+      {/* verification */}
+      <p style={{color:"green"}}>Verify this room by clicking on dropdown menu,choose True for Yes or False for No</p>
+      <div>
+        <VerifiedUserIcon />
+        <select
+          value={verified}
+          onChange={(e) => setValues({ ...values, verified: e.target.value })}
+        >
+          <option value="">Choose Verification</option>
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </div>
       {/* added */}
       <div className="lol">
         <input
@@ -143,19 +156,6 @@ const AdminHotelEditForm = ({
             }
           />
         )}
-        <div>
-          <VerifiedUserIcon />
-          <select
-            value={verified}
-            onChange={(e) =>
-              setValues({ ...values, verified: e.target.value })
-            }
-          >
-            <option value="">Choose Verification</option>
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-        </div>
 
         <button className="btn btn-outline-primary m-2" type="submit">
           Save
