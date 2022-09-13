@@ -30,6 +30,8 @@ import BlogList from './Admin/BlogList';
 import UsersList from './Admin/UsersList';
 import AdminEditHotel from './Admin/AdminEditHotel';
 import VerificationDocs from './Admin/VerificationDocs/VerificationDocs';
+import About from './component/aboutPage/About';
+import Contact from './component/contact/Contact';
 
 function App() {
   const dispatch = useDispatch()
@@ -72,6 +74,10 @@ function App() {
       />
       <Route path="/user/reset/:token" element={<ResetPassword />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+
       <Route
         path="/dashboard"
         element={auth.isLogged ? <Dashboard /> : <Login />}
@@ -108,7 +114,6 @@ function App() {
       <Route path="/blog" element={<SingleBlog />} />
       <Route path="/admin" element={<GlobalAdmin />} />
       <Route path="/admin/blogs" element={<BlogList />} />
-
       <Route path="/admin/users" element={<UsersList />} />
       <Route path="/admin/edit/hotel/:hotelId" element={<AdminEditHotel />} />
       <Route path="/admin/documents" element={<VerificationDocs />} />

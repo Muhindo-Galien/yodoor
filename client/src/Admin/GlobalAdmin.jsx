@@ -86,7 +86,7 @@ const GlobalAdmin = () => {
       },
     },
     {
-      field: "itemsQty",
+      field: "Name",
       headerName: "Items Qty",
       type: "number",
       minWidth: 150,
@@ -134,7 +134,7 @@ const GlobalAdmin = () => {
     hotels.forEach((item) => {
       rows.push({
         id: item._id,
-        itemsQty: item.length,
+        Name: item.title,
         amount: item.price,
         status: item.verified,
       });

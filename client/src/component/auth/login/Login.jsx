@@ -47,7 +47,6 @@ const Login = () => {
 
     }
 }
-
   return (
     <>
       <div className="X">
@@ -56,8 +55,8 @@ const Login = () => {
       {success && showSuccessMsg(success)} */}
       <form className="s4" onSubmit={handleSubmit}>
         <ul className="lsn"> 
-          <li><a href="#" id="gl"><span><FcGoogle/></span> Login with google</a></li>
-          <li><a href="#" id="fb"><span><FaFacebookF/></span> Login with facebook</a></li>
+          {/* <li><a href="#" id="gl"><span><FcGoogle/></span> Login with google</a></li>
+          <li><a href="#" id="fb"><span><FaFacebookF/></span> Login with facebook</a></li> */}
         </ul>
         
         <label htmlFor="email"> Email:</label>

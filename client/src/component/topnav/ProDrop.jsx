@@ -1,19 +1,19 @@
 import React from 'react'
 import './proDrop.css'
 import { Link } from 'react-router-dom'
-const ProDrop = ({handleLogout,dropit}) => {
+const ProDrop = ({ handleLogout, dropIt, setIsHandelProfDrop }) => {
   return (
-    <div className={dropit?"side-links active":"side-links"}>
-        <nav> 
-            <Link to='/profile'>
-                <a>Profile</a>
-            </Link>  
-            <Link to="/" onClick={handleLogout}>
-                <a>Logout</a>
-            </Link>
-        </nav>
+    <div className={dropIt ? "side-links active" : "side-links"}>
+      <nav>
+        <Link to="/profile">
+          <a onClick={() => setIsHandelProfDrop(!dropIt)}>Profile</a>
+        </Link>
+        <Link to="/" onClick={handleLogout}>
+          <a onClick={() => setIsHandelProfDrop(!dropIt)}>Logout</a>
+        </Link>
+      </nav>
     </div>
-  )
-}
+  );
+};
 
 export default ProDrop

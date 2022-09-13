@@ -8,9 +8,9 @@ const Footer = () => {
     <section className='footer'>
         <div className="share">
             <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-facebook'></a>
-            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-facebook'></a>
-            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-facebook'></a>
-            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-facebook'></a>
+            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-twitter'></a>
+            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-instagram'></a>
+            <a href="https://www.linkedin.com/in/muhindo-galien-292902213/" className='fab fa-youtube'></a>
         </div>
         <div className="links">
           <Link to='/'>

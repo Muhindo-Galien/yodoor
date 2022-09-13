@@ -15,7 +15,7 @@ import ProDrop from './ProDrop';
 const TopNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openIt, setOpenIt] = useState(false);
-  const [dropit, setDropit] = useState(false);
+  const [dropIt, setDropIt] = useState(false);
   const [isHandelProfDrop, setIsHandelProfDrop] = useState(false);
   
   const handelMenu =()=>{
@@ -25,7 +25,7 @@ const TopNav = () => {
     setOpenIt(!openIt)
   }
   const handelDrop =()=>{
-    setDropit(!dropit)
+    setDropIt(!dropIt);
   }
   const handelProfDrop =()=>{
     setIsHandelProfDrop(!isHandelProfDrop)
@@ -46,12 +46,19 @@ const TopNav = () => {
 }
 
 const userLink = () => {
-    return <div className=" fas">
-
-        <img src={user.avatar} alt="" className='prof'/><FaAngleDown onClick={()=>handelProfDrop()}/>
+    return (
+      <div className=" fas">
+        <img src={user.avatar} alt="" className="prof" />
+        <FaAngleDown onClick={() => handelProfDrop()} />
         {/* {user.name} <FaAngleDown/> */}
-        <ProDrop dropit={isHandelProfDrop} handleLogout={handleLogout}/>
-    </div>
+        <ProDrop
+          dropIt={isHandelProfDrop}
+          setIsHandelProfDrop={setIsHandelProfDrop}
+          handelDrop={handelDrop}
+          handleLogout={handleLogout}
+        />
+      </div>
+    );
 }
 
 const transForm = {
@@ -74,9 +81,6 @@ const transForm = {
         <Link to="/blog">
           <a onClick={() => setIsOpen(!isOpen)}>Blog</a>
         </Link>
-        <Link to="/admin">
-          <a onClick={() => setIsOpen(!isOpen)}>Admin</a>
-        </Link>
         <Link to="/about">
           <a onClick={() => setIsOpen(!isOpen)}>About us</a>
         </Link>
@@ -87,16 +91,18 @@ const transForm = {
 
       <div className="icons">
         {/* <div className="fas fa-shopping-cart" onClick={()=>handeOpenIt()}></div> */}
-        {isLogged && (
-          <div className="fas">
+        <div className="fas">
+          {isLogged && (
             <Link to="/dashboard">
               <MdDashboardCustomize className="dash" />
             </Link>
+          )}
+          {user.role === 1 && (
             <Link to="/admin">
               <MdOutlineDashboard className="dashAdmin" />
             </Link>
-          </div>
-        )}
+          )}
+        </div>
         {isLogged ? (
           userLink()
         ) : (
@@ -109,7 +115,12 @@ const transForm = {
           onClick={() => handelMenu()}
         ></div>
       </div>
-      <SideLinks dropit={dropit} />
+      <SideLinks
+        dropIt={dropIt}
+        setDropIt={setDropIt}
+        isOpen={isOpen}
+        handelMenu={handelMenu}
+      />
 
       <div
         className={

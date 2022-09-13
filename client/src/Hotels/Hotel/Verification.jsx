@@ -60,7 +60,7 @@ const Verification = () => {
 
   const handelChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    // console.log(values);
+    console.log(values);
   };
 
   const handelForm = () => (
@@ -78,6 +78,12 @@ const Verification = () => {
         accept="image/*"
         multiple
         onChange={handelImageChange}
+      />
+      <input
+        type="type"
+        name="try"
+        onChange={handelChange}
+        style={{display: "none"}}
       />
 
       <label for="file-upload" id="file-drag">
@@ -105,9 +111,7 @@ const Verification = () => {
       </label>
       {/* added */}
       <div className="lol">
-        {
-        !images ||
-        loading ? (
+        {!images || loading ? (
           <button
             disabled
             className="btn btn-outline-primary m-2"

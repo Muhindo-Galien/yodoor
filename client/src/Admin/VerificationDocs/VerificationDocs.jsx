@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./signleHotel.css";
 import BtnSlider from "./BtnSlider";
-import moment from "moment";
 import { adminHotelDocs } from "../../redux/actions/admin";
 import Sidebar from "../Sidebar";
 

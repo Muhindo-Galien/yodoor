@@ -164,6 +164,7 @@ router.get("/all-users",auth, authAdmin,allUsers);
 //     } catch (error) {}
 //   }
 // );
+
 // hotel edit starts here
 router.put('/admin/edit/hotel/:hotelId',auth,authAdmin,upload.array('images'), async(req,res)=>{
   try {

@@ -37,8 +37,6 @@ function Profile() {
                 dispatch(dispatchGetAllUsers(res))
             })
         }
-        // console.log("token");
-        // console.log(token);
     },[token, isAdmin, dispatch, callback])
 
     const handleChange = e => {
@@ -186,7 +184,7 @@ function Profile() {
                 <button disabled={loading} onClick={handleUpdate}>Update</button>
             </div>
 
-            <div className="col-right">
+            {/* <div className="col-right">
                 <h2>{isAdmin ? "Users" : "My Orders"}</h2>
 
                 <div style={{overflowX: "auto"}}>
@@ -226,8 +224,8 @@ function Profile() {
                             }
                         </tbody>
                     </table>
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
         </div>
         </>
     )

@@ -16,7 +16,7 @@ const Home = () => {
       <About/>
       <Featured/>
       <Contact/>
-      <Blog/>
+      {/* <Blog/> */}
       <Press/>
       <Footer/>
     </div>

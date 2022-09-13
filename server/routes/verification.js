@@ -4,6 +4,7 @@ import auth from "../middleware/auth";
 const cloudinary = require("../utils/cloudinary");
 import authAdmin from "../middleware/authAdmin";
 
+
 const Hotel = require("../models/hotel");
 const multer = require("multer");
 const router = express.Router();
@@ -34,52 +35,47 @@ const upload = multer({
 
 // controllers
 
-router.post(
-  "/verify-hotel",
-  auth,
-  upload.array("filesis"),
-  async (req, res) => {
-    try {
-      // console.log(req.files);
-      // upload image to cloudinary
-      const urls = [];
-      if (req.method === "POST") {
-        const files = req.files;
-        for (let file = 0; file < files.length; file++) {
-          const { path } = files[file];
-          // console.log(path);
-          const newPath = await cloudinary.uploader.upload(path, {
-            folder: "YodoorR",
-          });
-          urls.push({
-            public_id: newPath.public_id,
-            url: newPath.secure_url,
-          });
-          fs.unlinkSync(path);
-        }
-      }
-      let verifiedHotel = new Verification({
-        images: urls,
-      });
-      verifiedHotel.roomManager = req.user.id;
-      verifiedHotel.save((err, result) => {
-        if (err) {
-          console.log("Room verification error", err);
-          res.status(404).send("Error saving");
-        }
-        res.json({
-          massage: "Credentials successfully sent",
-          dta: result,
+router.post("/verify-hotel", auth, upload.array("images"), async (req, res) => {
+  try {
+    // console.log(req.files);
+    // upload image to cloudinary
+    const urls = [];
+    if (req.method === "POST") {
+      const files = req.files;
+      for (let file = 0; file < files.length; file++) {
+        const { path } = files[file];
+        // console.log(path);
+        const newPath = await cloudinary.uploader.upload(path, {
+          folder: "YodoorR",
         });
-      });
-      console.log("verifiedHotel");
-      console.log(verifiedHotel);
-    } catch (error) {
-      console.log("ERROR", error);
-      res.json({ message: error });
+        urls.push({
+          public_id: newPath.public_id,
+          url: newPath.secure_url,
+        });
+        fs.unlinkSync(path);
+      }
     }
+    let verifiedHotel = new Verification({
+      images: urls,
+    });
+    verifiedHotel.roomManager = req.user.id;
+    verifiedHotel.save((err, result) => {
+      if (err) {
+        console.log("Room verification error", err);
+        res.status(404).send("Error saving");
+      }
+      res.json({
+        massage: "Credentials successfully sent",
+        dta: result,
+      });
+    });
+    console.log("verifiedHotel");
+    console.log(verifiedHotel);
+  } catch (error) {
+    console.log("ERROR", error);
+    res.json({ message: error });
   }
-);
+});
 
 router.get("/admin/all-verification-request",auth,authAdmin, async(req,res)=>{
   let allVerificationRequest = await Verification.find({})

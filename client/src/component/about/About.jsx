@@ -19,7 +19,7 @@ const About = () => {
                     Ullam provident mollitia tenetur fuga consectetur minima alias,
                     non, illo in unde rerum! Debitis exercitationem voluptas
                     magnam maiores veniam adipisci maxime corporis!</p>
-                    <a href="#" className='btn'>learn more</a>
+                    <a href="/about" className='btn'>learn more</a>
             </div>
         </div>
     </section>
