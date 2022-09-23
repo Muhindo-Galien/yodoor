@@ -21,7 +21,7 @@ const Contact = () => {
           .then(
             (result) => {
               console.log(result.text);
-              window.location.reload();
+              // window.location.reload();
               alert.success("Message sent successfully!");
             },
             (error) => {
@@ -31,6 +31,8 @@ const Contact = () => {
             }
           );
       };
+      console.log("formRef.current");
+      console.log(formRef.current);
   return (
     <section className="contact">
       <h1 className="heading">
